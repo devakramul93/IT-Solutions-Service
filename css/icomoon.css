@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Icomoon icon font — mirrors the live WordPress theme's icon set exactly
+   (wp-content/themes/itzen/assets/fonts/icomoon/) so icon glyphs match
+   pixel-for-pixel instead of being approximated with hand-drawn SVGs.
+   ========================================================================== */
+@font-face {
+  font-family: icomoon;
+  src: url(../fonts/icomoon/Icomoon.ttf) format('truetype'),
+       url(../fonts/icomoon/Icomoon.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icomoon-"], [class*=" icomoon-"] {
+  font-family: icomoon !important;
+  speak: never;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icomoon-code:before { content: "\e903"; }
+.icomoon-icon-sv-1:before { content: "\e906"; }
+.icomoon-icon-sv-2:before { content: "\e907"; }
+.icomoon-icon-sv-3:before { content: "\e908"; }
+.icomoon-icon-sv-4:before { content: "\e909"; }
+.icomoon-icon-sv-5:before { content: "\e90a"; }
+.icomoon-icon-sv-6:before { content: "\e90b"; }
+.icomoon-icon-sv-7:before { content: "\e90c"; }
+.icomoon-icon-sv-8:before { content: "\e90d"; }
+.icomoon-icon-sv-9:before { content: "\e90e"; }
+.icomoon-icon-sv-10:before { content: "\e90f"; }
+.icomoon-icon-sv-11:before { content: "\e910"; }
+.icomoon-icon-sv-12:before { content: "\e911"; }
+.icomoon-icon-sv-13:before { content: "\e912"; }
+.icomoon-icon-sv-14:before { content: "\e913"; }
+.icomoon-icon-sv-15:before { content: "\e914"; }
+.icomoon-icon-sv-16:before { content: "\e915"; }
+.icomoon-icon-sv-17:before { content: "\e916"; }
+.icomoon-icon-sv-18:before { content: "\e917"; }
+.icomoon-icon-sv-19:before { content: "\e918"; }
+.icomoon-icon-sv-20:before { content: "\e919"; }
+.icomoon-icon-sv-21:before { content: "\e91a"; }
+.icomoon-icon-sv-22:before { content: "\e91b"; }
+.icomoon-icon-sv-23:before { content: "\e91c"; }
+.icomoon-icon-sv-24:before { content: "\e91d"; }
+.icomoon-icon-sv-25:before { content: "\e91e"; }
+.icomoon-lightning:before { content: "\e91f"; }
+.icomoon-pipes:before { content: "\e924"; }
+.icomoon-qouter:before { content: "\e925"; }
+.icomoon-rectangle-186:before { content: "\e926"; }
+.icomoon-serivce-setting:before { content: "\e928"; }
+.icomoon-sparkle:before { content: "\e92a"; }

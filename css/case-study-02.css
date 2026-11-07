@@ -1,0 +1,169 @@
+/* ==========================================================================
+   Case Study 02 (case-study-02.html)
+   Centered intro heading + filterable 3-column portfolio card grid.
+   ========================================================================== */
+
+/* Plain div, not a "section" — the live page (elementor-element-81ad739)
+   wraps eyebrow/heading/paragraph + the grid in ONE container with 95px/75px
+   top/bottom padding, not two independently-padded sections stacked (that
+   double-padding was producing the extra gap under the intro). */
+.case-intro {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 95px 24px 0;
+  text-align: center;
+}
+
+.case-intro .section-eyebrow {
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.case-intro .section-title {
+  max-width: none;
+  margin: 0 auto 10px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 1.1;
+  letter-spacing: -0.05rem;
+}
+
+.case-intro .section-title .highlight {
+  color: var(--color-text-title);
+}
+
+.case-intro .section-lead {
+  max-width: 810px;
+  margin: 0 auto 40px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--color-text-paragraph);
+}
+
+.case-list {
+  padding-top: 0;
+  padding-bottom: 75px;
+}
+
+/* ===== Filter tabs ===== */
+.case-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.case-filter .filter-item {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-text-paragraph);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.case-filter .filter-item:hover {
+  color: var(--color-software-primary);
+}
+
+.case-filter .filter-item.active {
+  background: #ffffff;
+  border-color: var(--color-text-title);
+  color: var(--color-text-title);
+}
+
+/* ===== Card grid ===== */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.case-card {
+  border: 1px solid rgba(2, 8, 66, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.case-card:hover {
+  border-color: transparent;
+  box-shadow: 0 24px 48px rgba(2, 8, 66, 0.1);
+  transform: translateY(-6px);
+}
+
+.case-card.is-hidden {
+  display: none;
+}
+
+.case-card-photo {
+  position: relative;
+}
+
+.case-card-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 700 / 435;
+  object-fit: cover;
+}
+
+.case-card-category {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-software-primary);
+}
+
+.case-card-body {
+  padding: 28px 26px;
+}
+
+.case-card-body h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.36;
+  margin: 0 0 10px;
+}
+
+.case-card-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.case-card-body h3 a:hover {
+  color: var(--color-software-primary);
+}
+
+.case-card-excerpt {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-text-paragraph);
+  margin: 0 0 18px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .case-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .case-grid { grid-template-columns: 1fr; }
+  .case-filter { gap: 10px; margin-bottom: 32px; }
+  .case-filter .filter-item { padding: 8px 18px; font-size: 14px; }
+}

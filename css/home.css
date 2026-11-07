@@ -1,0 +1,1806 @@
+/* ==========================================================================
+   Home page (index.html)
+   Reuses .site-header/.mobile-nav/.footer-* from blog-listing.css, .section/
+   .section-eyebrow/.section-title/.checklist/.check-icon/.btn-link from
+   services.css. Only page-specific blocks are defined here.
+   ========================================================================== */
+
+.home-main {
+  /* x-only: a plain `overflow: hidden` here (both axes) silently breaks
+     every `position: sticky` element on the page (e.g. `.home-pricing-head`)
+     since it becomes the nearest scrolling ancestor for the Y axis. Matches
+     the site-wide `overflow-x: clip` convention on html/body instead. */
+  overflow-x: clip;
+}
+
+.section-eyebrow {
+  color: var(--color-text-paragraph);
+}
+
+/* Every heading highlight on this page's own post-20.css is dark navy
+   (#141721), not the services.css default blue — except "Our IT Services"
+   on its dark panel, which explicitly overrides to white further below. */
+.home-main .section-title .highlight {
+  color: var(--color-text-title);
+}
+
+/* ===== Hero ===== */
+.home-hero {
+  position: relative;
+  padding: 110px 20px 0;
+  background: linear-gradient(180deg, #2342AD 55%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.home-hero-inner {
+  max-width: 1780px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero-globe {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  --parallax-y: 0px;
+  transform: translateX(-50%) translateY(var(--parallax-y));
+  width: 52%;
+  max-width: 1000px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.home-hero-globe img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: pxl-globe-spin 32s linear infinite;
+}
+
+@keyframes pxl-globe-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-globe img { animation: none; }
+}
+
+.home-hero-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.home-hero-title {
+  max-width: 450px;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.05rem;
+  margin: 0;
+}
+
+/* Live demo's left column stacks the title on a fixed 180px gap above the
+   lead/CTA so it ends up sitting near the bottom, level with the right
+   column's title (see .home-hero-col--right below) — this is what gives
+   the hero its full height, not padding on the section itself. */
+.home-hero-col--left {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero-col--left .home-hero-title {
+  margin-bottom: 180px;
+}
+
+.home-hero-left-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.home-hero-award {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.home-hero-award img { flex-shrink: 0; }
+
+.home-hero-award h3 {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.home-hero-award p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Right column stretches to match the left column's height (flex row
+   default align-items: stretch) then spreads its two children apart, so
+   the award badge sits near the top and the title near the bottom. */
+.home-hero-col--right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.home-hero-lead {
+  max-width: 300px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+.home-hero-title--right {
+  max-width: 430px;
+  text-align: right;
+  font-size: 48px;
+  margin: 0;
+}
+
+.home-hero-photo {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
+
+.home-hero-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+/* ===== Partners =====
+   Live is a near-full-bleed dark panel (20px page gutter, not a 1290px
+   floating card) with the title centered ABOVE the logo row, no overlap
+   into the sections above/below. Each logo sits in its own translucent
+   rounded pill; the source PNGs are already correctly colored (icon in
+   brand color + white text) so no filter belongs on them. */
+.home-partners {
+  background: #020842;
+  border-radius: 20px;
+  margin: 20px 20px 0;
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.home-partners-eyebrow {
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+.home-partners-eyebrow svg,
+.home-partners-eyebrow i {
+  color: #FFCF27;
+}
+
+.home-partners-track {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Live is a `pxl_partner_carousel` (Swiper) with slides_to_show_xxl: 6 — each
+   of the 6 logos gets an equal-width slot spanning the FULL panel width, not
+   a centered cluster with a fixed gap (which left empty space at the sides
+   on wide viewports). A 6-column grid reproduces that even, edge-to-edge
+   spread; auto-fit lets it drop to fewer columns as it wraps on narrower
+   screens (mirrors the carousel's lg:4/md:3/sm:2/xs:1 breakpoints). */
+.home-partners-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.home-partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  padding: 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+.home-partner-logo:hover {
+  background: #ffffff;
+}
+
+.home-partner-logo img {
+  max-height: 46px;
+  width: auto;
+}
+
+/* ===== Learn About Us =====
+   Live: the boxed wrapper's padding (15px each side) lives on the OUTER
+   Elementor container; the ACTUAL 1290px cap applies to its `.e-con-inner`
+   child, which has zero side padding of its own — so the grid's real
+   content width is 1290px, not 1290-30. Our `.section` rule puts max-width
+   and padding on the same border-box element, so it needs max-width:1320px
+   here (1290 + the 15+15 padding) to net the same 1290px content width. */
+.home-about {
+  max-width: 1320px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.home-about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 120px;
+  align-items: stretch;
+}
+
+.home-about-title {
+  max-width: 830px;
+  margin-bottom: 30px;
+}
+
+.home-about-points {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 10px;
+  margin-bottom: 30px;
+}
+
+.home-about-point {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.home-about-point-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.home-about-point-icon i {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.home-about-point-icon--accent {
+  background: var(--color-software-accent);
+}
+
+.home-about-point-icon--primary {
+  background: var(--color-software-primary);
+  color: #fff;
+}
+
+.home-about-point-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--color-text-title);
+}
+
+.home-about p {
+  /* Live sets no max-width — the text fills the full 60% column (~702px
+     at desktop). A narrower cap here was forcing an extra wrap line. */
+  margin: 0 0 30px;
+}
+
+.home-about-photo {
+  position: relative;
+  min-height: 570px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+}
+
+/* Live shapes this box with a CSS mask (mask-counter.png's alpha channel),
+   not a plain rounded rect — the accent fill only shows through the mask's
+   blob/badge silhouette, stretched to the box's own content-driven size. */
+.home-about-counter {
+  background: var(--color-software-accent);
+  padding: 25px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: fit-content;
+  -webkit-mask-image: url(../images/home/mask-counter.png);
+  mask-image: url(../images/home/mask-counter.png);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center top;
+  mask-position: center top;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.home-about-counter-value {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--color-text-title);
+  line-height: 1;
+}
+
+.home-about-counter-value em {
+  font-style: normal;
+  font-size: 18px;
+}
+
+.home-about-counter-label {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-title);
+}
+
+/* ===== Our IT Services =====
+   Live page: a near-full-bleed light-blue rounded panel (#E3F2FB, 1px
+   navy-10% border) with a 20px page gutter each side — same pattern as
+   `.home-partners` below, NOT the 1290px boxed container (confirmed on
+   the live site: panel width = viewport - 40px). Heading/lead are
+   unconstrained (previous 830px/620px caps forced an extra wrap line);
+   the actual line break only comes from real column width, same as
+   `.home-about-title`'s fix. */
+.home-services {
+  background: var(--color-software-gray-light);
+  border: 1px solid rgba(48, 48, 72, 0.1);
+  border-radius: 20px;
+  max-width: none;
+  margin: 20px 20px 0;
+  padding: 100px 68px;
+}
+
+.home-services-head {
+  display: block;
+  text-align: center;
+}
+
+.home-services-head .section-eyebrow {
+  justify-content: center;
+  color: var(--color-text-paragraph);
+}
+
+.home-services-head .section-title {
+  color: var(--color-text-title);
+  max-width: none;
+  margin: 0 auto;
+}
+
+.home-services-lead {
+  max-width: none;
+  margin: 20px auto 0;
+  color: var(--color-text-paragraph);
+}
+
+.home-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+/* Verified against `.pxl-icon-box7 .pxl-item--inner`: base padding is
+   35px 40px 40px — it only drops to 25px 15px below 1600px viewport width. */
+.home-service-card {
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 35px 40px 40px;
+  transition: border-color 0.3s ease;
+}
+
+@media (max-width: 1600px) {
+  .home-service-card { padding: 25px 15px; }
+}
+
+.home-service-card:hover {
+  border-color: var(--color-software-primary);
+}
+
+/* Live page fills the empty slot beside the last row's 2 cards with a
+   team photo (`2c38282`/Image-banner-cl.webp) instead of leaving it
+   blank — spans the 2 remaining grid columns. */
+.home-service-photo {
+  grid-column: span 2;
+  min-height: 450px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 1200px) {
+  .home-service-photo { min-height: 300px; }
+}
+
+.home-service-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.home-service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: var(--color-software-primary);
+}
+
+.home-service-icon svg {
+  width: 55px;
+  height: 55px;
+}
+
+.home-service-icon i {
+  font-size: 55px;
+  line-height: 1;
+}
+
+.home-service-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text-title);
+  margin: 0;
+}
+
+.home-service-divider {
+  height: 1px;
+  margin-bottom: 38px;
+  background: linear-gradient(to right, rgba(2, 8, 66, 0) 0%, rgba(2, 8, 66, 0.05) 15%, rgba(2, 8, 66, 0.15) 35%, rgba(2, 8, 66, 0.3) 50%, rgba(2, 8, 66, 0.15) 65%, rgba(2, 8, 66, 0.05) 85%, rgba(2, 8, 66, 0) 100%);
+}
+
+.home-service-card > p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-paragraph);
+  margin: 0 0 25px;
+}
+
+.home-service-list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.home-service-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 18px;
+  line-height: 27.9px;
+  color: var(--color-text-paragraph);
+}
+
+.home-service-list li + li {
+  margin-top: 5px;
+}
+
+.home-service-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-software-primary);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17L4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17L4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.home-services .btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 15px;
+  line-height: 48px;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 10px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.home-services .btn-link:hover {
+  background: var(--color-software-primary);
+  border-color: var(--color-software-primary);
+  color: #ffffff;
+}
+
+/* ===== How We Works (step accordion) =====
+   Matches services.html's .process-section conversion (verified against
+   the live page): .section-head's shared flex row now correctly pairs
+   .section-head-left (eyebrow+title) with .section-head-text side by
+   side instead of stacking them. */
+.home-process .section-head-text {
+  max-width: 650px;
+}
+
+.home-process .section-head-text p {
+  margin-bottom: 30px;
+}
+
+/* This section sits on a plain white background (unlike services.html's
+   dark process-section), so the shared .checklist's white li/check-icon
+   default (meant for dark panels) is overridden — dark text, and the
+   check icon keeps its badge circle but in the light-gray/blue pairing. */
+.home-process .checklist li {
+  color: var(--color-text-title);
+}
+
+.home-process .check-icon {
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+}
+
+.step-accordion {
+  list-style: none;
+  margin: 50px 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.step-accordion-item {
+  border-bottom: 1px solid rgba(2, 8, 66, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+/* Live page achieves this with a negative-margin overlap trick (the
+   content panel's blue box slides up behind the title row via
+   `margin-top:-85px` + the title's own `z-index:2`); putting the blue
+   background + radius on the whole active `<li>` instead gives the same
+   "title + number sit inside the blue panel" result without that hack —
+   verified against the live page's rendered rect: content top starts
+   above the title row, i.e. the title is visually inside the blue box. */
+.step-accordion-item.is-active {
+  background: var(--color-software-primary);
+  border-radius: 20px;
+  border-color: transparent;
+}
+
+.step-accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 28px 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--color-text-title);
+}
+
+/* Badge is always a bordered circle; only the active step swaps it to a
+   solid yellow fill (text stays dark navy — verified on the live page:
+   `.pxl--item.active .item-number` only changes background/border, not
+   color). */
+.step-title-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-text-title);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.step-accordion-item.is-active .step-title-number {
+  background: var(--color-software-accent);
+  border-color: var(--color-software-accent);
+}
+
+.step-title-text {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.step-accordion-item.is-active .step-title-text {
+  color: #ffffff;
+}
+
+.step-accordion-title svg {
+  flex-shrink: 0;
+  color: var(--color-text-title);
+  transition: transform 0.25s ease;
+}
+
+.step-accordion-item.is-active .step-accordion-title svg {
+  transform: rotate(90deg);
+  color: #ffffff;
+}
+
+.step-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  color: #ffffff;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.step-accordion-content-inner {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.step-accordion-item.is-active .step-accordion-content {
+  grid-template-rows: 1fr;
+  padding: 0 0 30px;
+}
+
+.step-content-text p {
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 20px;
+}
+
+.step-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step-checklist li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.step-checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
+.step-content-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+/* ===== Our Case Studies (flex expand gallery) =====
+   The #020842 background is full-bleed (edge to edge); only the inner
+   content (.home-cases-inner) is capped at 1780px, matching the hero's
+   own 1780px inner width. The gallery itself (pxl-portfolio-flex) grows
+   the active card to flex:2 (not 2.6) and reveals a floating
+   frosted-glass meta card anchored bottom-right (not a full-width
+   gradient overlay). */
+.home-cases {
+  background: var(--color-software-dark);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 120px 15px;
+  overflow: hidden;
+}
+
+.home-cases-inner {
+  position: relative;
+  max-width: 1780px;
+  margin: 0 auto;
+}
+
+/* Two faint rotating wireframe-globe graphics bleeding out of the top-left
+   and bottom-right corners (verified against post-20.css elements
+   bec7aa0/80a0032: 700px, top:-200/left:-350 and bottom:-200/right:-350,
+   clipped by the section's overflow:hidden) — spinning opposite
+   directions, same as the hero globe's animation. */
+.home-cases-deco {
+  position: absolute;
+  z-index: 0;
+  width: 700px;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  animation: pxl-globe-spin 40s linear infinite;
+}
+
+.home-cases-deco--tl {
+  top: -200px;
+  left: -350px;
+}
+
+.home-cases-deco--br {
+  bottom: -200px;
+  right: -350px;
+  animation-duration: 20s;
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-cases-deco { animation: none; }
+}
+
+.home-cases-head {
+  position: relative;
+  z-index: 1;
+  display: block;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home-cases-head .section-eyebrow { justify-content: center; color: #ffffff; }
+.home-cases-head .section-eyebrow svg,
+.home-cases-head .section-eyebrow i { color: var(--color-software-accent); }
+.home-cases-head .section-title,
+.home-cases-head .section-title .highlight { margin: 0 auto; color: #ffffff; }
+.home-cases-head p { max-width: 785px; margin: 20px auto 0; color: #ffffff; font-size: 20px; font-weight: 500; }
+
+.home-cases-flex {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 30px;
+}
+
+.home-case-flex-item {
+  flex: 1;
+  min-height: 630px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  transition: flex 0.8s cubic-bezier(0.29, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.home-case-flex-item.is-active,
+.home-case-flex-item:hover {
+  flex: 2;
+}
+
+.home-case-flex-meta {
+  position: absolute;
+  z-index: 1;
+  bottom: 30px;
+  right: 30px;
+  width: 82%;
+  padding: 30px;
+  border-radius: 14px;
+  background: linear-gradient(to top, rgba(0, 4, 34, 0.9) 0%, rgba(2, 5, 32, 0.8) 100%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.home-case-flex-item.is-active .home-case-flex-meta,
+.home-case-flex-item:hover .home-case-flex-meta {
+  transform: scale(1);
+  opacity: 1;
+  transition-delay: 0.36s;
+}
+
+.home-case-flex-tag {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.home-case-flex-meta h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 20px;
+  color: #ffffff;
+}
+
+.home-case-flex-meta h3 a { color: inherit; text-decoration: none; }
+
+.home-case-flex-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.home-case-flex-row a { color: #ffffff; }
+
+.home-case-flex-meta .btn-link {
+  margin-top: 30px;
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  .home-cases { padding: 75px 15px; }
+  .home-case-flex-item { min-height: 520px; }
+  .home-case-flex-meta { width: 90%; padding: 25px 15px; }
+}
+
+/* ===== Pricing + stats =====
+   Verified against post-20.css (852c94f/fcedff5) and the live page: the
+   left text column is `position:sticky;top:120px` while the right column
+   is a single flex-direction:column stack of 3 full-width cards (not 3
+   side-by-side grid columns) — the "stacking on scroll" look the sticky
+   left column creates against the scrolling stacked cards. Each card is
+   also a two-layer structure (`.pxl-pricing-inner`/`.pxl-body`): a
+   colored 10px frame around a white body, not a single flat card. */
+.home-pricing-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.home-pricing-head {
+  position: sticky;
+  top: 120px;
+}
+
+.home-pricing-head .section-title {
+  font-size: 45px;
+  letter-spacing: -0.05rem;
+  margin-bottom: 30px;
+}
+
+.home-pricing-head > p {
+  margin-bottom: 40px;
+}
+
+.home-pricing-subhead {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 23px;
+  letter-spacing: -0.05rem;
+  margin: 0 0 20px;
+}
+
+.home-stats {
+  display: flex;
+  gap: 40px;
+}
+
+/* Live page pairs each counter with a small icon-sqare.png sitting on a
+   thin top divider line (border-top on the stat block + the icon pulled
+   up over it with a negative margin) — previously missing entirely. */
+.home-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(79, 0, 237, 0.1);
+}
+
+/* Coded as a mask-image sparkle (same path as the section-eyebrow icon)
+   instead of the site's icon-sqare.png raster, which blurs badly at this
+   tiny size — a vector stays crisp at any zoom/DPI. */
+.home-stat-icon {
+  display: block;
+  align-self: flex-start;
+  width: 24px;
+  height: 24px;
+  margin-top: -32px;
+  margin-bottom: 8px;
+  background-color: var(--color-software-primary);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23.5409 11.3651L20.0977 10.3791C18.5471 9.94097 17.1347 9.11143 15.9956 7.96981C14.8564 6.82819 14.0286 5.4127 13.5915 3.85878L12.6075 0.408125C12.5581 0.287398 12.4739 0.18414 12.3657 0.11147C12.2575 0.0388 12.1302 0 12 0C11.8698 0 11.7425 0.0388 11.6343 0.11147C11.5261 0.18414 11.4419 0.287398 11.3925 0.408125L10.4085 3.85878C9.97135 5.4127 9.1436 6.82819 8.00445 7.96981C6.8653 9.11143 5.45286 9.94097 3.9023 10.3791L0.459103 11.3651C0.326896 11.4028 0.210538 11.4826 0.127683 11.5924C0.0448281 11.7023 0 11.8363 0 11.974C0 12.1117 0.0448281 12.2457 0.127683 12.3556C0.210538 12.4655 0.326896 12.5453 0.459103 12.5829L3.9023 13.569C5.45286 14.0071 6.8653 14.8366 8.00445 15.9782C9.1436 17.1198 9.97135 18.5353 10.4085 20.0892L11.3925 23.5399C11.43 23.6724 11.5096 23.789 11.6192 23.872C11.7289 23.9551 11.8626 24 12 24C12.1374 24 12.2711 23.9551 12.3808 23.872C12.4904 23.789 12.57 23.6724 12.6075 23.5399L13.5915 20.0892C14.0286 18.5353 14.8564 17.1198 15.9956 15.9782C17.1347 14.8366 18.5471 14.0071 20.0977 13.569L23.5409 12.5829C23.6731 12.5453 23.7895 12.4655 23.8723 12.3556C23.9552 12.2457 24 12.1117 24 11.974C24 11.8363 23.9552 11.7023 23.8723 11.5924C23.7895 11.4826 23.6731 11.4028 23.5409 11.3651Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23.5409 11.3651L20.0977 10.3791C18.5471 9.94097 17.1347 9.11143 15.9956 7.96981C14.8564 6.82819 14.0286 5.4127 13.5915 3.85878L12.6075 0.408125C12.5581 0.287398 12.4739 0.18414 12.3657 0.11147C12.2575 0.0388 12.1302 0 12 0C11.8698 0 11.7425 0.0388 11.6343 0.11147C11.5261 0.18414 11.4419 0.287398 11.3925 0.408125L10.4085 3.85878C9.97135 5.4127 9.1436 6.82819 8.00445 7.96981C6.8653 9.11143 5.45286 9.94097 3.9023 10.3791L0.459103 11.3651C0.326896 11.4028 0.210538 11.4826 0.127683 11.5924C0.0448281 11.7023 0 11.8363 0 11.974C0 12.1117 0.0448281 12.2457 0.127683 12.3556C0.210538 12.4655 0.326896 12.5453 0.459103 12.5829L3.9023 13.569C5.45286 14.0071 6.8653 14.8366 8.00445 15.9782C9.1436 17.1198 9.97135 18.5353 10.4085 20.0892L11.3925 23.5399C11.43 23.6724 11.5096 23.789 11.6192 23.872C11.7289 23.9551 11.8626 24 12 24C12.1374 24 12.2711 23.9551 12.3808 23.872C12.4904 23.789 12.57 23.6724 12.6075 23.5399L13.5915 20.0892C14.0286 18.5353 14.8564 17.1198 15.9956 15.9782C17.1347 14.8366 18.5471 14.0071 20.0977 13.569L23.5409 12.5829C23.6731 12.5453 23.7895 12.4655 23.8723 12.3556C23.9552 12.2457 24 12.1117 24 11.974C24 11.8363 23.9552 11.7023 23.8723 11.5924C23.7895 11.4826 23.6731 11.4028 23.5409 11.3651Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.home-stat-value {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text-title);
+}
+
+.home-stat-value em {
+  font-style: normal;
+  font-size: 16px;
+}
+
+.home-stat-label {
+  font-size: 15px;
+  color: var(--color-text-paragraph);
+}
+
+@media (max-width: 1200px) {
+  .home-pricing-head .section-title { font-size: 35px; }
+}
+
+.home-pricing-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pricing-card-frame {
+  background: var(--color-software-gray-dark);
+  border: 1px solid rgba(2, 8, 66, 0.15);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.pricing-card--popular .pricing-card-frame {
+  background: var(--color-software-primary);
+}
+
+.pricing-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 38px 36px 30px;
+}
+
+.pricing-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-text-title);
+}
+
+.pricing-card--popular .pricing-card-title { color: #ffffff; }
+
+.pricing-card-title img { flex-shrink: 0; }
+
+.pricing-card-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 55px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-text-title);
+}
+
+.pricing-card--popular .pricing-card-price { color: #ffffff; }
+
+.pricing-card-price em {
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: -3px;
+  color: var(--color-text-paragraph);
+}
+
+.pricing-card--popular .pricing-card-price em { color: rgba(255, 255, 255, 0.75); }
+
+.btn-prc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 50px;
+  padding: 0 25px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #303048;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+
+.btn-prc:hover { background: var(--color-software-primary); }
+
+.pricing-card--popular .btn-prc {
+  background: var(--color-software-accent);
+  color: var(--color-text-title);
+}
+
+.pricing-card-body {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 35px 36px 38px;
+}
+
+.pricing-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  writing-mode: vertical-rl;
+  line-height: 36px;
+  padding: 14px 0;
+  background: var(--color-services-primary);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.pricing-card-included {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--color-text-title);
+  margin: 0 0 20px;
+}
+
+.pricing-card-included span {
+  color: #ffffff;
+  background: var(--color-software-primary);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.pricing-card--popular .pricing-card-included span { background: #e735ea; }
+
+.pricing-card-body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pricing-card-body li {
+  position: relative;
+  min-width: 50%;
+  max-width: 50%;
+  flex-grow: 1;
+  padding-left: 22px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--color-text-paragraph);
+}
+
+.pricing-card-body li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-software-primary);
+  font-weight: 700;
+}
+
+/* ===== Meet Our Teams + Our Technologies =====
+   Verified against post-20.css: both sections share ONE panel
+   (87d75ff — #E3F2FB, border, radius 20, near-full-bleed like
+   `.home-services`) rather than each having its own background. */
+.home-team-tech-panel {
+  position: relative;
+  background: var(--color-software-gray-light);
+  border: 1px solid rgba(48, 48, 72, 0.1);
+  border-radius: 20px;
+  max-width: none;
+  margin: 20px 20px 0;
+  padding: 120px 68px 70px;
+  overflow: hidden;
+}
+
+/* Two soft glowing circles (right-image-zoom.png) drifting in the
+   background — verified against elements 24b830a (top-right,
+   pxl-circle-move: orbits in a small circular path) and 67158ff
+   (bottom-left, slide-right-to-left: slides side to side). */
+.home-team-deco {
+  position: absolute;
+  z-index: 0;
+  width: 270px;
+  height: 270px;
+  pointer-events: none;
+}
+
+.home-team-deco--1 {
+  top: -100px;
+  right: -50px;
+  animation: pxl-circle-move 12s infinite linear;
+}
+
+.home-team-deco--2 {
+  bottom: -100px;
+  left: -50px;
+  animation: pxl-slide-right-left 12s ease-out infinite;
+}
+
+@keyframes pxl-circle-move {
+  0% { transform: rotate(0) translate(30px) rotate(0); }
+  25% { transform: rotate(360deg) translate(30px) rotate(-360deg); }
+  50% { transform: rotate(720deg) translate(30px) rotate(-720deg); }
+  75% { transform: rotate(1080deg) translate(30px) rotate(-1080deg); }
+  100% { transform: rotate(1440deg) translate(30px) rotate(-1440deg); }
+}
+
+@keyframes pxl-slide-right-left {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(40px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(-40px); }
+  100% { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-team-deco { animation: none; }
+}
+
+/* Rotating vector peeking out of the panel's bottom-right corner, behind
+   the Technologies grid — clipped by `.home-team-tech-panel`'s own
+   overflow:hidden, same as element 970cc19 on the live site. */
+.home-tech-spin {
+  position: absolute;
+  z-index: 0;
+  width: 650px;
+  height: 650px;
+  bottom: -220px;
+  right: -320px;
+  pointer-events: none;
+  animation: pxl-spin-reverse 12s linear infinite;
+}
+
+@keyframes pxl-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-tech-spin { animation: none; }
+}
+
+.home-team-head {
+  position: relative;
+  z-index: 1;
+  display: block;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.home-team-head .section-eyebrow { justify-content: center; }
+.home-team-head .section-title { max-width: 1350px; margin: 0 auto; }
+
+.home-team-flex {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 30px;
+  max-width: 1290px;
+  margin: 0 auto 70px;
+}
+
+.home-team-item {
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 10px;
+  flex: 1;
+  transition: flex 0.6s cubic-bezier(0.29, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.home-team-item.is-active,
+.home-team-item:hover {
+  flex: 2;
+}
+
+/* Without this, hovering a different card keeps the default is-active
+   card expanded too (two cards open at once, each squeezed narrower
+   than intended and wrapping the excerpt onto an extra line). Only the
+   hovered card should stay expanded while the pointer is inside the row. */
+.home-team-flex:hover .home-team-item.is-active:not(:hover) {
+  flex: 1;
+}
+
+.home-team-item-inner {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* The photo must never resize during the hover animation (only the box
+   around it should grow, then the text should fade in - see home.js).
+   Default is flex:1 so it fills the whole card when nothing is pinned;
+   while a card is opening/open, home.js pins this to the exact pixel width
+   it had right before the transition started (flex-grow/shrink: 0, a fixed
+   px flex-basis), so all the extra room the item's flex-grow above creates
+   goes entirely to `.home-team-meta` instead of stretching the photo. */
+.home-team-avatar {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 370px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Stays flex-grow:0 (claims nothing) until active/hovered, at which point
+   it becomes the only flexible child (the avatar is pinned by JS by then)
+   and simply absorbs whatever space the item's own flex-grow transition
+   above adds - one curve, driven entirely by the item, nothing of its own
+   to animate for the width. Only opacity fades in here, and only after a
+   delay so the panel's box is already sized before the text appears.
+   flex-grow itself also gets a (practically invisible, since the avatar
+   takes over the instant it's pinned) transition: without one it would
+   jump to 1 the moment `:hover` matches - i.e. before home.js's mouseenter
+   handler runs its measurement - so the pin would capture an already
+   halved, wrong avatar width instead of the true closed one. */
+.home-team-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  min-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 20px 0 20px 20px;
+  transition: flex-grow 0.4s ease, opacity 0.25s ease;
+}
+
+.home-team-item.is-active .home-team-meta,
+.home-team-item:hover .home-team-meta {
+  flex-grow: 1;
+  opacity: 1;
+  transition: flex-grow 0.4s ease, opacity 0.3s ease 0.4s;
+}
+
+.home-team-flex:hover .home-team-item.is-active:not(:hover) .home-team-meta {
+  flex-grow: 0;
+  opacity: 0;
+  transition: flex-grow 0.25s ease, opacity 0.2s ease;
+}
+
+.home-team-meta h5 { font-size: 22px; margin: 0 0 12px; color: var(--color-text-title); }
+.home-team-role { color: var(--color-text-paragraph); font-size: 18px; line-height: 27.9px; margin-bottom: 10px; }
+.home-team-meta p {
+  font-size: 16px;
+  line-height: 24.8px;
+  color: var(--color-text-paragraph);
+  margin: 0 0 20px;
+}
+
+.home-team-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-software-accent);
+  color: var(--color-text-title);
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+/* ===== Our Technologies (tabs) ===== */
+.home-tech-head { position: relative; z-index: 1; display: block; text-align: center; margin-bottom: 40px; }
+.home-tech-head .section-eyebrow { justify-content: center; }
+.home-tech-head .section-title { margin: 0 auto; }
+
+.tech-tabs {
+  position: relative;
+  z-index: 1;
+}
+
+.tech-tabs-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.tech-tab {
+  display: inline-block;
+  line-height: 42px;
+  padding: 0 30px;
+  border-radius: 14px;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  background: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-text-paragraph);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tech-tab.is-active {
+  background: var(--color-software-primary);
+  border-color: var(--color-software-primary);
+  color: #ffffff;
+}
+
+/* Live's 5 tabs (Web Platform/Database/Cloud & DevOps/Mobile Apps/UX-UI &
+   Product) render the same 14-logo set, just reshuffled in 2 of the 5 tabs
+   — visually a wash, so one shared grid (matching the majority order) is
+   used for all tabs rather than encoding near-duplicate content 5x.
+   Live is a static CSS grid — repeat(7, 1fr), 2 rows — not a slider;
+   verified against element 44c0018's --e-con-grid-template-columns. */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 47px 30px;
+  max-width: 1090px;
+  margin: 0 auto;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.tech-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.tech-item-icon img {
+  display: block;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.tech-item-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-text-title);
+}
+
+/* ===== Client Testimonials =====
+   Verified against post-20.css (2932fd3 44% / b4c0136 56%, with a
+   right-border divider on the left column and 100px left padding on the
+   right one) and theme-style.css `.pxl-testimonial-carousel1`: no card
+   background at all — big bold quote/desc directly on the page, a
+   120x120 rounded-square avatar, and a real prev/next carousel. */
+.home-testimonials-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+  gap: 0;
+  align-items: center;
+}
+
+.home-testimonials-side {
+  border-right: 1px solid rgba(2, 8, 66, 0.1);
+  padding-right: 15px;
+}
+
+.home-testimonials-clients {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* Live wraps each logo+count pair in its own card: #F7F9FF fill, 1px
+   navy-10% border, 20px radius — not a bare, unstyled flex column. */
+.home-testimonials-clients > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #F7F9FF;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 18px 25px 15px;
+}
+
+.home-testimonials-clients p {
+  font-size: 14px;
+  color: var(--color-text-paragraph);
+  margin: 0;
+}
+
+.home-testimonials-clients p b {
+  color: #000000;
+}
+
+.home-testimonial-carousel {
+  position: relative;
+  padding-left: 100px;
+}
+
+.home-testimonial-slide { display: none; }
+.home-testimonial-slide.is-active { display: block; }
+
+.home-testimonial-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-software-primary);
+  margin-bottom: 12px;
+}
+
+.home-testimonial-stars .is-dim { color: var(--color-text-paragraph); }
+
+.home-testimonial-stars span {
+  margin-left: 8px;
+  color: var(--color-text-title);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.home-testimonial-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-software-primary);
+  margin: 0 0 35px;
+}
+
+.home-testimonial-slide > p {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-title);
+  margin: 0 0 70px;
+}
+
+/* Meta row now holds two groups side by side: the avatar+name person block
+   on the left, and the prev/next nav on the right — align-items:center
+   guarantees the nav is always vertically centered against the avatar,
+   regardless of how tall the quote text above happens to wrap. This reads
+   more reliably than absolutely positioning the nav against the box as a
+   whole (which drifted whenever the quote's line count changed). */
+.home-testimonial-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.home-testimonial-person {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.home-testimonial-person img {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.home-testimonial-person h5 { font-size: 30px; font-weight: 600; margin: 0 0 10px; }
+.home-testimonial-person span { font-size: 16px; color: var(--color-text-paragraph); }
+
+/* Verified against the page-specific override for this exact widget
+   (element 4ed1ddf): `.pxl-navigation-arrow{margin:0 0 0 10px}` — each
+   arrow gets a 10px left margin, opening a real gap between the pair
+   (the generic theme default collapses them flush, which was wrong here). */
+.home-testimonial-nav {
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+/* Verified against `.pxl-navigation-carousel.style-1 .pxl-navigation-arrow`:
+   65px circle (not 48px), border tinted with the primary color, not navy. */
+.home-testimonial-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid rgba(35, 66, 173, 0.1);
+  background: none;
+  color: var(--color-text-title);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.home-testimonial-arrow svg {
+  transition: transform 0.3s ease;
+}
+
+.home-testimonial-arrow:hover {
+  background: var(--color-software-primary);
+  border-color: var(--color-software-primary);
+  color: #ffffff;
+}
+
+/* Live also spins the chevron itself on hover — prev tilts one way, next
+   the other — instead of just swapping colors. */
+.home-testimonial-arrow[data-dir="-1"]:hover svg { transform: rotate(45deg); }
+.home-testimonial-arrow[data-dir="1"]:hover svg { transform: rotate(-45deg); }
+
+/* ===== Blog preview =====
+   Verified against post-20.css: the whole section is one bordered panel
+   (82a7b07/a5ed385 — content-width 1500px, radius 20, gradient
+   #E3F2FB-to-transparent background), split 68% list / 32% featured
+   card (not 50/50), with real pill-style meta badges. */
+.home-blog-outer {
+  padding: 0 20px 90px;
+}
+
+.home-blog-panel {
+  max-width: 1500px;
+  margin: 0 auto;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 110px 105px 85px;
+  background: linear-gradient(180deg, var(--color-software-gray-light) 0%, rgba(227, 242, 251, 0) 100%);
+}
+
+/* Verified against post-20.css (ccd68be/bb773d0): eyebrow+heading are
+   centered, matching every other centered section-head on this page. */
+.home-blog-head {
+  display: block;
+  text-align: center;
+  margin-bottom: 56px;
+}
+.home-blog-head .section-eyebrow { justify-content: center; }
+.home-blog-head .section-title { margin: 0 auto; }
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.post-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 34px;
+  padding: 0 16px;
+  border-radius: 35px;
+  color: var(--color-text-paragraph);
+  box-shadow: 0 0 0 1px #e5e5e5;
+}
+
+/* Re-verified against the live source: BOTH the list posts (widget
+   pxl-blog-grid-layout2) and the featured card (pxl-blog-grid-layout1)
+   render with the same `item-morden` skin, whose own theme rule
+   (`.item-morden .item-meta{box-shadow:transparent}`) drops the pill
+   border on EVERY post here — the card itself already carries the
+   border, so the tags inside it shouldn't double up with their own. */
+.home-blog-item .post-meta-item,
+.home-blog-card .post-meta-item {
+  box-shadow: none;
+  padding: 0 20px 0 0;
+  border-radius: 0;
+}
+
+.home-blog-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 68fr) minmax(0, 32fr);
+  gap: 30px;
+  align-items: stretch;
+}
+
+.home-blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Verified: list items are ALSO white bordered cards (`.item-morden`
+   applies to both grids, not just the featured one) — image and text
+   stretch to equal height as flex siblings (align-items: stretch, not
+   center, is what actually keeps left/right the same height). */
+.home-blog-item {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.home-blog-item-photo {
+  flex: 0 0 45%;
+  max-width: 45%;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.home-blog-item-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-blog-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 10px 10px 0;
+}
+
+.home-blog-item-body h3 { font-size: 20px; font-weight: 600; margin: 0 0 23px; line-height: 1.4; max-width: 85%; }
+.home-blog-item-body h3 a { color: inherit; text-decoration: none; }
+
+.home-blog-item .btn-readmore {
+  color: var(--color-text-title);
+  text-decoration: underline;
+}
+
+.btn-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text-paragraph);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.btn-readmore:hover {
+  color: var(--color-software-primary);
+  text-decoration: underline;
+}
+
+/* Stretched to match the list column's combined height (2 stacked
+   items + gap) — the photo flex-grows to absorb the extra height so the
+   card's overall footprint lines up with the list, instead of leaving
+   the right column shorter. */
+.home-blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 10px 10px 45px;
+}
+
+.home-blog-photo {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.home-blog-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-blog-body { padding: 0 14px; }
+.home-blog-body h3 { font-size: 20px; font-weight: 600; margin: 25px 0 18px; line-height: 1.4; }
+.home-blog-body h3 a { color: inherit; text-decoration: none; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1440px) {
+  .home-about-grid { gap: 30px; }
+}
+
+@media (max-width: 1200px) {
+  .home-services { padding: 70px 15px; }
+  .home-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-team-tech-panel { padding: 70px 15px; }
+  .pricing-card-body li { font-size: 16px; }
+}
+
+@media (max-width: 767px) {
+  .pricing-card-price { font-size: 36px; }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 575px) {
+  .pricing-card-price { margin-bottom: 20px; }
+}
+
+@media (max-width: 1024px) {
+  .home-hero-title { font-size: 42px; }
+  .home-hero-title--right { font-size: 32px; }
+  .home-partners { padding: 50px 30px; }
+  .tech-grid { grid-template-columns: repeat(5, 1fr); gap: 15px; }
+  .home-about-grid { gap: 10px; }
+  .home-pricing-grid { grid-template-columns: 1fr; }
+  .home-pricing-head { position: static; }
+  .home-testimonials-grid { grid-template-columns: 1fr; gap: 40px; }
+  .home-testimonials-side { border-right: none; padding-right: 0; }
+  .home-testimonial-carousel { padding-left: 0; }
+  .home-testimonial-meta { flex-wrap: wrap; }
+  .home-blog-panel { padding: 70px 30px; }
+  .home-blog-grid { grid-template-columns: 1fr; }
+  .home-blog-item { flex-direction: column; align-items: stretch; }
+  .home-blog-item-photo { max-width: 100%; flex-basis: auto; }
+  /* Touch devices can't hover to expand a flex-basis gallery — show every
+     card's meta at a comfortable auto height instead of clipping it inside
+     a fixed 260/320px box (which overflowed and overlapped the card below). */
+  .home-cases-flex { flex-direction: column; height: auto; }
+  .home-case-flex-item { height: auto; min-height: 320px; flex: none !important; }
+  .home-case-flex-meta { opacity: 1; transform: scale(1); white-space: normal; }
+  .home-team-flex { flex-direction: column; }
+  .home-team-item { flex: none !important; }
+  .home-team-item-inner { flex-wrap: wrap; }
+  .home-team-avatar { width: 100%; }
+  .home-team-item .home-team-meta { display: flex; flex-basis: 100% !important; opacity: 1 !important; padding: 20px; }
+}
+
+@media (max-width: 900px) {
+  .home-hero-row { flex-direction: column; align-items: flex-start; }
+  .home-hero-col--left .home-hero-title { margin-bottom: 24px; }
+  .home-hero-col--right { align-items: flex-start; gap: 24px; }
+  .home-hero-award { margin-bottom: 0; }
+  .home-hero-title--right { text-align: left; }
+  .home-partners { flex-direction: column; text-align: center; }
+  .step-accordion-content-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 880px) {
+  .home-about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .tech-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .home-about-points { grid-template-columns: 1fr; }
+  .home-services { padding: 50px 20px; }
+  .home-services-grid { grid-template-columns: 1fr; }
+  .home-partners { padding: 35px; }
+  .home-testimonials-clients > div { padding: 15px; }
+  .home-stats { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .home-hero-title { font-size: 32px; }
+}

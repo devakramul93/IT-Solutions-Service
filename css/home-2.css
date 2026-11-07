@@ -1,0 +1,1787 @@
+/* ===== Home 2 ===== */
+
+/* services.css and pricing-table.css (reused below for the approach/FAQ/
+   pricing sections) are both written against `--color-software-*`, but
+   Home 2 actually renders in the site's "IT Services" purple/cyan palette
+   (`--color-services-*`, already defined in styles.css). Rather than fork
+   those stylesheets, remap the variables just for this page so every rule
+   they already have resolves to the right colors here. */
+body.home-2 {
+  --color-software-primary: var(--color-services-primary);
+  --color-software-accent: var(--color-services-accent);
+  --color-software-dark: var(--color-services-blue);
+  --color-software-gray-dark: var(--color-services-gray);
+  --color-software-gray-light: var(--color-services-gray);
+}
+
+/* Pricing intro heading tweaks specific to this page - scoped under
+   body.home-2 rather than edited in pricing-table.css, so the standalone
+   pricing-table.html page (which loads that file directly) is untouched. */
+body.home-2 .pricing-intro .section-title { max-width: 930px; line-height: 1.2em; letter-spacing: -3px; }
+body.home-2 .pricing-intro .section-title .highlight { color: var(--color-text-title); }
+
+/* Modern Solutions Challenge (FAQ) - real layout (checked against the
+   live page's own DOM) is NOT the 2-column "text left / accordion
+   right" grid services.css's shared `.challenge-section` gives every
+   other page that reuses this class (pricing-table.html,
+   services-02.html - left untouched here). It's a column stack: a
+   60/40 header ROW (title left, text+button right), THEN the accordion
+   BELOW spanning the full width, boxed in its own light panel. The new
+   `.challenge-header`/`.challenge-right` classes only exist in this
+   page's markup, so scoping the override through them is enough - no
+   risk to the other pages even without an extra page-scope prefix. */
+/* padding-top/bottom is 105px on the real container (#d532838), not the
+   shared `.section` default of 90px. */
+.home2-main .challenge-section { display: block; padding-top: 105px; padding-bottom: 105px; }
+
+/* Real gap between the two header columns is 30px (`#bcd1b0a{--gap:30px
+   30px}`), not 60px - the extra 30px was stealing width from the 40%
+   right column, which is exactly what pushed its text/button onto the
+   wrong line. */
+.challenge-header {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.challenge-left { width: 60%; flex: 1 1 420px; }
+.challenge-right { width: 40%; flex: 1 1 320px; }
+
+.challenge-left .section-title { max-width: 930px; line-height: 1.2em; letter-spacing: -4px; }
+.challenge-left .section-title .highlight { color: var(--color-text-title); }
+.challenge-right .section-head-text { font-size: 20px; max-width: none; margin-bottom: 32px; }
+
+.faq-accordion-panel {
+  background: #f4f8ff;
+  border-radius: 20px;
+  padding: 70px 107px;
+}
+
+.challenge-section .faq-accordion { gap: 10px; }
+
+/* FAQ accordion items (`.pxl-accordion1.style-3` in the real theme) -
+   the base padding/border/active-bg/title size in services.css already
+   matched, but the sub-bullet list under the first answer didn't: real
+   is a strict 2-column layout (each <li> exactly 50% wide, not just a
+   flex-wrap of auto-width items), bigger text, and the open answer is
+   capped at 85% width, not the full item width. */
+.challenge-section .faq-accordion-content { max-width: 85%; }
+/* The shared base rule sets `gap:20px` (both row AND column) - with two
+   flex items at exactly 50% width each, that leftover 20px COLUMN gap
+   pushes the second item past 100% width, so it wraps onto its own
+   row instead of sitting beside the first. Real markup has no gap at
+   all here (the row spacing comes from each li's own line-height:40px)
+   - zeroing it out restores the intended 2-per-row (4 items total). */
+.challenge-section .faq-accordion-content-inner ul { margin-top: 20px; gap: 0; }
+.challenge-section .faq-accordion-content-inner li { flex: 0 0 50%; max-width: 50%; box-sizing: border-box; font-size: 18px; line-height: 40px; }
+
+@media (max-width: 1024px) {
+  .faq-accordion-panel { padding: 50px 40px; }
+}
+
+@media (max-width: 767px) {
+  .challenge-header { flex-direction: column; gap: 30px; }
+  .challenge-left, .challenge-right { width: 100%; }
+  .faq-accordion-panel { padding: 30px 15px; }
+  .challenge-section .faq-accordion-content { max-width: 100%; }
+  .challenge-section .faq-accordion-content-inner li { flex-basis: 100%; max-width: 100%; }
+}
+
+/* Every section eyebrow on this page is the same shared theme component
+   (`.pxl-icon-box2`), whose real desktop size is 24px (only dropping to
+   18px at <=1200px) and font-weight 500 - the shared `.section-eyebrow`
+   base class in services.css has it at a flat 18px/600, so this
+   corrects it page-wide here rather than in that shared file (which
+   other pages also load). Its color (#666666) already matches
+   `--color-text-paragraph`, so no color override is needed. */
+.home2-main .section-eyebrow { font-size: 24px; font-weight: 500; }
+
+@media (max-width: 1200px) {
+  .home2-main .section-eyebrow { font-size: 18px; }
+}
+
+/* Every section-head paragraph (the descriptive line under a title) is
+   20px on the real page - the shared `p` default here is 18px
+   (`--body-size`), so bump the specific ones used as section intros.
+   The Latest Case Studies intro (element #027bc00) is the one exception -
+   it carries no font-size override on the live page at all, so it just
+   inherits the theme's plain 18px body size and wraps to exactly 2 lines
+   inside its 420px column; forcing it to 20px here made it run long. */
+.home2-stats-top p,
+.home2-testi-intro .section-head-text,
+body.home-2 .pricing-intro-text {
+  font-size: 20px;
+}
+
+.home2-cases-head-text p { font-size: 18px; }
+
+.home2-testi-intro .section-head-text { font-weight: 500; }
+
+/* Site-wide default boxed container width, confirmed from the theme's own
+   Elementor kit CSS (.e-con{--container-max-width:1290px}) - this is the
+   default used by every section that doesn't explicitly override it
+   (the hero and a couple of others do, at 1680px; see their own rules). */
+.home2-main .section {
+  padding: 90px 15px;
+  max-width: 1290px;
+  margin: 0 auto;
+}
+
+/* ===== Hero =====
+   Real structure measured against the live page: ONE rounded photo panel
+   (`.home2-hero-panel`, capped at 1680px, background photo + dark
+   left-to-right gradient overlay) holding a two-column flex row - text
+   on the left (~60%), the 2x2 staircase of stat cards on the right
+   (~40%). Not a centered single column with cards absolutely-positioned
+   on top of it. */
+.home2-hero {
+  background: linear-gradient(180deg, #f4f8ff 0%, rgba(244, 248, 255, 0) 100%);
+  padding: 20px 20px 0;
+}
+
+.home2-hero-panel {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #303048 url('../images/home-2/background-home2.webp') center / cover no-repeat;
+  padding: 30px 0;
+}
+
+.home2-hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(-90deg, rgba(48, 48, 72, 0.36) 56%, rgba(48, 48, 72, 0.94) 90%);
+}
+
+/* The panel's photo background is full-bleed (edge to edge, no cap) -
+   only the text/stat content is capped at 1680px and centered inside it.
+   Measured on the live page: at viewports above ~1720px the panel keeps
+   stretching full-width while this inner row stays 1680px and centers. */
+.home2-hero-columns {
+  position: relative;
+  z-index: 1;
+  max-width: 1680px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.home2-hero-inner {
+  width: 60%;
+  min-width: 0;
+  padding: 100px;
+}
+
+/* Values taken straight from the live page's own CSS (theme default heading
+   size 60px/1.1/-3px letter-spacing, not a custom hero size). The 200px
+   margin below the title is real too - it's what gives the hero its actual
+   height and pushes the lead/button down; without it the section reads far
+   shorter and more cramped than the live page. */
+.home2-hero-title {
+  font-family: var(--font-heading);
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -3px;
+  color: #ffffff;
+  margin: 0 0 200px;
+  max-width: 540px;
+}
+
+.home2-hero-title em {
+  font-family: "Cormorant", sans-serif;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.home2-hero-lead {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.55;
+  max-width: 510px;
+  margin: 0 0 30px;
+}
+
+.home2-hero .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The two cards form an exact diagonal staircase on the live page: a 2x2
+   grid with each card in its own cell reproduces the source markup
+   (row 1 = card + empty cell, row 2 = empty cell + card). */
+.home2-hero-stats {
+  width: 40%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding: 0 15px 0 0;
+}
+
+.home2-stat-card {
+  min-width: 0;
+  padding: 10px 25px 45px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.home2-stat-card--purple { grid-column: 1; grid-row: 1; background: var(--color-services-primary); border-radius: 20px 20px 0 20px; }
+.home2-stat-card--cyan { grid-column: 2; grid-row: 2; background: var(--color-services-accent); color: var(--color-text-title); border-radius: 0 20px 20px 20px; margin-top: -2px; padding-top: 15px; }
+
+.home2-stat-card-value {
+  font-family: "Cormorant", serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 120px;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0;
+}
+
+/* The thin divider line between the number and the label - present in the
+   live markup as a small image (divider-small.png / divider-small-black.png)
+   between the two headings; reproduced here as a plain rule so no extra
+   image asset is needed. */
+.home2-stat-card-divider {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: 1px;
+  margin: 0 auto 20px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.home2-stat-card--cyan .home2-stat-card-divider { background: rgba(20, 23, 33, 0.25); }
+
+.home2-stat-card-label {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  display: block;
+  max-width: 230px;
+  margin: 0 auto;
+}
+
+.home2-stat-card--purple .home2-stat-card-label em { font-style: italic; font-family: "Cormorant", sans-serif; }
+.home2-stat-card--cyan .home2-stat-card-label span { font-family: "Cormorant", sans-serif; font-style: normal; }
+
+@media (max-width: 1440px) {
+  .home2-hero-inner { width: 50%; padding: 45px 15px; }
+  .home2-hero-stats { width: 50%; padding: 15px 15px 15px 0; }
+  .home2-stat-card-value { font-size: 80px; }
+}
+
+@media (max-width: 1200px) {
+  .home2-hero { padding: 0; }
+  .home2-hero-panel { border-radius: 0; }
+  .home2-hero-title { font-size: 40px; }
+}
+
+@media (max-width: 1024px) {
+  .home2-hero-title { margin-bottom: 80px; }
+}
+
+@media (max-width: 767px) {
+  .home2-hero-columns { flex-direction: column; }
+  .home2-hero-inner, .home2-hero-stats { width: 100%; }
+  .home2-hero-inner { padding: 60px 40px; }
+  .home2-hero-title { font-size: 35px; margin-bottom: 40px; }
+  .home2-hero-stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 20px; padding: 0 20px 30px; }
+}
+
+@media (max-width: 640px) {
+  .home2-hero-inner { padding: 60px 20px; }
+  .home2-hero-stats { grid-template-columns: 1fr; padding: 0 20px 30px; }
+  .home2-stat-card--purple { grid-column: 1; grid-row: 1; }
+  .home2-stat-card--cyan { grid-column: 1; grid-row: 2; margin-top: 0; }
+  .home2-stat-card-value { font-size: 72px; }
+}
+
+/* ===== Hero awards strip =====
+   Live page: a 2-column row (50/50, 20px gap) right below the hero panel
+   - left = the dark award card (#303048, split in two by an internal
+   border), right = a teal photo panel (banner-h2.webp, already
+   color-treated in the source file, no CSS overlay needed). Unlike the
+   hero panel (which IS capped/boxed at 1680px), this section is
+   `e-con-full` in the source - full-bleed, only small side padding, no
+   max-width. Confirmed against a live screenshot + the site's own CSS
+   (element #9582e34 carries that background-image). */
+.home2-awards {
+  margin: 20px 0 0;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.home2-awards-panel {
+  background: var(--color-services-blue);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.home2-award {
+  color: #ffffff;
+  min-width: 0;
+  padding: 42px 60px 42px 70px;
+}
+
+.home2-award + .home2-award {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home2-award img { margin-bottom: 18px; max-height: 75px; width: auto; }
+.home2-award h3 { font-size: 22px; font-weight: 600; color: #ffffff; margin: 0 0 4px; }
+.home2-award p { font-family: "Cormorant", sans-serif; font-style: italic; font-weight: 600; font-size: 22px; color: #ffffff; margin: 0 0 38px; }
+.home2-award p.home2-award-desc { font-family: inherit; font-style: normal; font-weight: 400; font-size: 18px; color: #ffffff; line-height: 1.55; max-width: 280px; margin: 0; }
+
+/* Live page: background-position pans from "center" to "top" on hover with
+   a slow 2s transition, then eases back to center on mouse-leave - not a
+   static image. */
+.home2-awards-photo {
+  border-radius: 20px;
+  background: url('../images/home-2/banner-h2.webp') center center / cover no-repeat;
+  transition: background-position 2s ease;
+}
+
+.home2-awards-photo:hover {
+  background-position: top center;
+}
+
+@media (max-width: 900px) {
+  .home2-awards { grid-template-columns: 1fr; padding: 0 20px; }
+  .home2-awards-photo { min-height: 260px; }
+  .home2-awards-panel { grid-template-columns: 1fr; }
+  .home2-award { padding: 25px 15px; }
+  .home2-award h3 { font-size: 18px; }
+  .home2-award p { font-size: 16px; margin-bottom: 30px; }
+  .home2-award p.home2-award-desc { font-size: 16px; max-width: none; }
+  .home2-award + .home2-award { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+}
+
+/* ===== About =====
+   Real layout: a true 33% / 67% two-column row (label left, heading
+   right) - not label-width-plus-gap. That's what pushes the heading
+   column to start further right and caps it at ~860px wide, which in
+   turn is what wraps it to exactly 3 lines ("...IT" / "...to" /
+   "delivering innovative."). */
+.home2-about-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.home2-about-head h2 { max-width: 860px; margin: 0; line-height: 1.1em; letter-spacing: -3px; }
+.home2-about-head h2 .highlight { color: var(--color-text-title); }
+
+/* No align-items override - real layout leaves this at the grid default
+   (stretch), so both columns (the card and the photo) match height. */
+.home2-about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.home2-about-card {
+  background: var(--color-services-gray);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.home2-about-lead {
+  color: var(--color-text-title);
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+.home2-about-card .btn { margin-bottom: 32px; }
+
+.home2-about-divider { height: 1px; background: rgba(2,8,66,0.08); margin: 0 -40px 28px; width: calc(100% + 80px); }
+
+.home2-about-tabs {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 30px;
+}
+
+.home2-about-tablist { display: flex; flex-direction: column; gap: 18px; }
+
+.home2-about-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(20,23,33,0.35);
+  cursor: pointer;
+}
+
+.home2-about-tab::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: rotate(45deg);
+  flex: none;
+}
+
+.home2-about-tab.is-active { color: var(--color-text-title); }
+.home2-about-tab.is-active::before { background: var(--color-services-primary); }
+
+/* Real widget uses jQuery slideUp/slideDown (tab-effect-slide), not an
+   instant show/hide - switching tabs animates height, so the incoming
+   panel visibly slides down while the outgoing one collapses. */
+.home2-about-panel {
+  height: 0;
+  overflow: hidden;
+  background: var(--color-services-blue);
+  border-radius: 16px;
+  padding: 0 30px;
+  color: #ffffff;
+  transition: padding 300ms ease;
+}
+
+.home2-about-panel.is-active { height: auto; padding: 28px 30px; }
+
+.home2-about-panel h4 { font-size: 17px; margin: 0 0 18px; font-weight: 600; color: #ffffff; }
+.home2-about-panel h4 em { font-style: italic; font-family: "Cormorant Garamond", serif; color: rgba(255,255,255,0.85); }
+.home2-about-panel-divider { height: 1px; background: rgba(255,255,255,0.15); margin-bottom: 18px; }
+.home2-about-panel p { margin: 0; color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.6; }
+
+/* Real design: the "8+ Years of experience" badge sits absolutely
+   positioned inside the photo (bottom-right corner), not stacked below
+   it as a separate block. The photo itself is a cover background (not
+   an <img>) so it stretches to match the left card's height - the two
+   columns are equal-height siblings in the source, not independently
+   sized. */
+.home2-about-side {
+  position: relative;
+  display: flex;
+}
+
+.home2-about-photo {
+  position: relative;
+  flex: 1;
+  min-height: 570px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: url('../images/home-2/bg-clumn-case-img.webp') center / cover no-repeat;
+}
+
+/* Real page: this badge is a fixed 200x250 box (not shrink-to-fit), with
+   the "8+" number set at 100px - our old 48px/48px number read far smaller
+   than the box around it. */
+.home2-about-counter {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  width: 200px;
+  height: 250px;
+  box-sizing: border-box;
+  background: var(--color-services-accent);
+  border-radius: 20px;
+  padding: 25px 30px 30px;
+}
+
+.home2-about-counter-value {
+  display: inline-flex;
+  align-items: flex-start;
+  font-family: var(--font-heading);
+  font-size: 100px;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-text-title);
+  margin-bottom: 10px;
+}
+
+.home2-about-counter-value em {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  margin: 6px 0 0 2px;
+}
+
+.home2-about-counter-label {
+  display: block;
+  max-width: 120px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-text-title);
+}
+
+@media (max-width: 1024px) {
+  .home2-about-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .home2-about-head { grid-template-columns: 1fr; }
+  .home2-about-head h2 { max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .home2-about-tabs { grid-template-columns: 1fr; }
+  .home2-about-tablist { flex-direction: row; flex-wrap: wrap; gap: 20px; }
+  .home2-about-counter { right: 15px; bottom: 15px; width: 150px; height: 190px; padding: 18px 20px 22px; }
+  .home2-about-counter-value { font-size: 64px; }
+}
+
+/* ===== Vertical services strip =====
+   Real design: a full-bleed lavender wash (#F4F8FF + a faint doodle
+   pattern) behind a boxed 1680px column (not the page's shared 1290px
+   `.section`) - a white bordered row of 6 hover-expand tiles. Each tile
+   carries its own photo (hidden until active/hover) and a floating
+   white "meta" card with a subtitle, a feature list and a button; the
+   vertical title stays vertical even when expanded (pinned to a 170px
+   strip on the left of the photo) - it never flips horizontal. */
+.home2-services-strip {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-services-gray);
+  padding: 100px 20px;
+}
+
+/* The doodle pattern is a faint 10% overlay, not a full-strength
+   background - at full opacity it fights with the heading text. */
+.home2-services-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../images/home-2/bg-grss.png') top center / auto no-repeat;
+  opacity: 0.1;
+}
+
+.home2-services-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+.home2-services-strip .section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home2-services-strip .section-eyebrow { margin-bottom: 10px; }
+.home2-services-strip h2 { margin: 0 auto; max-width: 830px; line-height: 1.1em; letter-spacing: -3px; }
+.home2-services-strip h2 .highlight { color: var(--color-text-title); }
+
+.home2-services-flex {
+  display: flex;
+  height: 560px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(2,8,66,0.08);
+  border-radius: 20px;
+}
+
+.home2-service-item {
+  position: relative;
+  flex: 1;
+  background: #ffffff;
+  border-right: 1px solid rgba(2,8,66,0.08);
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.6s cubic-bezier(0.29, 0, 0.2, 1);
+  min-width: 90px;
+}
+
+.home2-service-item:last-child { border-right: none; }
+
+.home2-service-item.is-active,
+.home2-service-item:hover {
+  flex: 3.4;
+}
+
+/* Collapsing the outer box alone isn't enough - the default `.is-active`
+   item's arrow/vertical-strip/photo/meta-card are all keyed off
+   `.is-active` too, and nothing ever removes that class (this is pure
+   CSS, no JS toggling it) - so without overriding each of them here as
+   well, hovering a sibling shrank the box but left its arrow hidden,
+   its title strip still widened and its photo + meta-card still fully
+   visible, jammed into the now-narrow column. */
+.home2-services-flex:hover .home2-service-item.is-active:not(:hover) {
+  flex: 1;
+}
+
+.home2-services-flex:hover .home2-service-item.is-active:not(:hover) .home2-service-arrow {
+  transform: translateX(-50%);
+  opacity: 1;
+}
+
+.home2-services-flex:hover .home2-service-item.is-active:not(:hover) .home2-service-vertical {
+  width: 100%;
+}
+
+.home2-services-flex:hover .home2-service-item.is-active:not(:hover) .home2-service-bg {
+  opacity: 0;
+}
+
+.home2-services-flex:hover .home2-service-item.is-active:not(:hover) .home2-service-meta {
+  opacity: 0;
+  transform: scale(0);
+  transition-delay: 0s;
+}
+
+/* Real size straight from the theme's own CSS (.btn-icon-svg): 65x65px
+   with a 1px hairline border, not 56px - it read visibly smaller than the
+   live page. */
+.home2-service-arrow {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  z-index: 2;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-services-accent);
+  color: var(--color-text-title);
+  transform: translateX(-50%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.home2-service-arrow svg { width: 22px; height: 22px; }
+
+.home2-service-item.is-active .home2-service-arrow,
+.home2-service-item:hover .home2-service-arrow {
+  transform: translateX(-50%) rotate(180deg) scale(0);
+  opacity: 0;
+}
+
+.home2-service-vertical {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 25px 0;
+  transition: width 0.6s cubic-bezier(0.29, 0, 0.2, 1);
+}
+
+.home2-service-item.is-active .home2-service-vertical,
+.home2-service-item:hover .home2-service-vertical {
+  width: 170px;
+}
+
+/* Real order (checked on the live page): the title reads first, with
+   the icon below it - not the other way around. Real icon is an icomoon
+   glyph at font-size:50px with margin-bottom:20px (`.pxl-post--icon`) -
+   noticeably bigger than the 36px box this used to be. */
+.home2-service-icon {
+  order: 2;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-services-primary);
+  margin-top: 20px;
+  flex: none;
+}
+
+.home2-service-icon svg { width: 42px; height: 42px; }
+
+.home2-service-title {
+  order: 1;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-text-title);
+  white-space: nowrap;
+}
+
+/* Right-anchored, not full-width - it must start after the 170px title
+   strip (real bug found on review: `inset:0` made the photo run full
+   width, sitting underneath the title instead of beside it). */
+.home2-service-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(100% - 170px);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.4s ease, width 0.6s cubic-bezier(0.29, 0, 0.2, 1);
+}
+
+.home2-service-item.is-active .home2-service-bg,
+.home2-service-item:hover .home2-service-bg {
+  opacity: 1;
+}
+
+.home2-service-meta {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  max-width: 300px;
+  background: #ffffff;
+  border: 1px solid rgba(2,8,66,0.08);
+  border-radius: 14px;
+  padding: 26px;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.home2-service-item.is-active .home2-service-meta,
+.home2-service-item:hover .home2-service-meta {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.3s;
+}
+
+.home2-service-subtitle { margin: 0 0 14px; font-size: 18px; font-weight: 500; color: var(--color-text-title); }
+
+.home2-service-list { list-style: none; margin: 0 0 20px; padding: 0; }
+.home2-service-list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 18px;
+  color: var(--color-text-paragraph);
+  line-height: 1.55;
+}
+.home2-service-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-services-primary);
+}
+
+.home2-service-meta .btn { font-size: 18px; }
+
+@media (max-width: 1600px) {
+  .home2-service-title { font-size: 19px; }
+}
+
+@media (max-width: 900px) {
+  .home2-services-flex { flex-direction: column; height: auto; }
+  .home2-service-item { min-height: 90px; flex: none !important; border-right: none; border-bottom: 1px solid rgba(2,8,66,0.08); }
+  .home2-service-item.is-active { min-height: 460px; }
+  .home2-service-vertical { position: relative; z-index: 2; width: 100% !important; flex-direction: row; justify-content: flex-start; padding: 20px; background: rgba(255,255,255,0.9); }
+  .home2-service-icon { order: 0; margin-top: 0; margin-right: 12px; }
+  .home2-service-title { order: 0; writing-mode: horizontal-tb; transform: none; font-size: 17px; }
+  .home2-service-arrow { display: none; }
+  .home2-service-item.is-active .home2-service-bg,
+  .home2-service-item:hover .home2-service-bg { opacity: 1; }
+  .home2-service-meta { position: static; max-width: none; opacity: 1; transform: none; margin: 0 20px 20px; }
+}
+
+/* ===== Our IT Approach =====
+   Real layout (checked against the live page, not the guess this used to
+   be built on): `.approach-section` is `services.css`'s shared 2-column
+   grid, built for services-02.html's single text+image pair - it is NOT
+   what shapes this section, so it's neutralised here to a plain block.
+   The actual layout is two full-width rows: a header row (heading + the
+   "04-step" badge side by side), then a body row (accordion | one tall
+   photo that stretches to the accordion's full height via flex stretch,
+   not its own intrinsic aspect ratio). */
+.home2-main .approach-section {
+  display: block;
+}
+
+.approach-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.approach-intro { width: 55%; flex: 1 1 420px; }
+.approach-intro .section-title { line-height: 1.1em; letter-spacing: -0.05rem; }
+.approach-intro .section-title .highlight { color: var(--color-text-title); }
+
+.home2-approach-badge {
+  width: 45%;
+  flex: 1 1 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.home2-approach-badge-feature {
+  display: flex;
+  flex: none;
+}
+
+.home2-approach-badge-avatar {
+  flex-shrink: 0;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.home2-approach-badge-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.home2-approach-badge-number {
+  flex-shrink: 0;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: var(--color-services-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 70px;
+  font-weight: 600;
+  margin-left: -70px;
+}
+
+.home2-approach-badge-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--color-text-paragraph);
+  font-size: 18px;
+  line-height: 1.55;
+  max-width: 260px;
+}
+
+.approach-body {
+  display: flex;
+  align-items: stretch;
+  gap: 50px;
+}
+
+.approach-steps {
+  width: 520px;
+  flex: none;
+}
+
+.home2-approach-photo {
+  flex: 1;
+  min-height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 1200px) {
+  .approach-steps { width: 440px; }
+}
+
+@media (max-width: 1024px) {
+  .approach-body { flex-direction: column; }
+  .approach-steps { width: 100%; }
+  .home2-approach-photo { min-height: 360px; }
+}
+
+@media (max-width: 640px) {
+  .approach-header { flex-direction: column; align-items: flex-start; }
+  .approach-intro, .home2-approach-badge { width: 100%; justify-content: flex-start; }
+  .home2-approach-badge { flex-wrap: wrap; row-gap: 12px; }
+  .home2-approach-badge-text { max-width: 100%; flex-basis: 100%; }
+}
+
+@media (max-width: 420px) {
+  .home2-approach-badge-avatar,
+  .home2-approach-badge-number { width: 110px; height: 110px; }
+  .home2-approach-badge-number { font-size: 44px; margin-left: -45px; }
+}
+
+/* Accordion re-skin for this page - overridden scoped to `.home2-main` so
+   services-02.html's own (still correct, unrelated) use of the same
+   shared classes in services.css is untouched. Real design: collapsed
+   rows are light rounded pills; the active row turns solid dark navy
+   with a cyan number circle, and its answer opens as a solid purple
+   panel directly underneath - not a plain bordered list. */
+.home2-main .approach-steps-lead {
+  margin: 0 0 48px;
+  padding-left: 55px;
+  border-left: 3px solid var(--color-services-primary);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-title);
+}
+
+.home2-main .step-accordion { border-top: none; }
+
+.home2-main .step-accordion-item {
+  border: 1px solid rgba(2,8,66,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(20,23,33,0.1) 0%, rgba(20,23,33,0) 100%);
+  margin-bottom: 10px;
+}
+
+.home2-main .step-accordion-item:last-child { margin-bottom: 0; }
+
+.home2-main .step-accordion-item.is-active {
+  background-color: var(--color-text-title);
+  border-color: var(--color-text-title);
+}
+
+.home2-main .step-accordion-title { padding: 15px 30px; gap: 12px; }
+
+.home2-main .step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(48,48,72,0.1) 0%, rgba(48,48,72,0) 100%);
+  color: var(--color-text-title);
+  font-size: 20px;
+}
+
+.home2-main .step-accordion-item.is-active .step-number { background: var(--color-services-accent); color: var(--color-text-title); }
+
+.home2-main .step-accordion-title span.step-title-text { font-size: 22px; }
+
+.home2-main .step-accordion-item.is-active .step-title-text { color: #ffffff; }
+
+.home2-main .step-accordion-content { background: var(--color-services-primary); }
+
+.home2-main .step-accordion-item.is-active .step-accordion-content { max-height: 260px; }
+
+.home2-main .step-accordion-content p {
+  color: #ffffff;
+  padding: 30px 30px 35px;
+  font-size: 18px;
+  line-height: 1.5555;
+}
+
+/* ===== Why Choose Us (dark) =====
+   Real: the dark background is full-bleed - checked at a 2200px
+   viewport, it still runs edge to edge with no gap, unlike the site's
+   other (1290px-capped) sections. Two copies of the same decorative
+   "network globe" PNG sit pinned to the top-left and bottom-right
+   corners, clipped by the section's own overflow:hidden - there's no
+   rotation/spin animation anywhere in the source, despite how the
+   dashed-sphere graphic reads at a glance. Cards use the real per-card
+   SVGs (some dark-filled, some white-filled, exactly as authored) on a
+   transparent 80px icon box; on hover the whole card turns solid
+   purple and the icon box turns white with the glyph forced dark. */
+.home2-choose {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-text-title);
+  color: #ffffff;
+}
+
+.home2-choose-deco {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Live page only has this one decorative graphic (bottom-right, class
+   `pxl-image-spin-reverse`) - no top-left copy. It spins continuously,
+   counter-clockwise, 12s per turn, forever. */
+.home2-choose-deco--br {
+  bottom: -325px;
+  right: -125px;
+  width: 650px;
+  height: 650px;
+  animation: home2-choose-deco-spin 12s linear infinite;
+}
+
+@keyframes home2-choose-deco-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.home2-choose-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 115px 15px 90px;
+  text-align: center;
+}
+
+.home2-choose .section-eyebrow { color: rgba(255,255,255,0.7); justify-content: center; }
+.home2-choose .section-eyebrow svg { color: var(--color-services-primary); }
+/* No max-width on the live page's version of this heading - it's free to
+   use the full 1290px `.home2-choose-inner` container. The 900px cap here
+   was artificial and is exactly what forced "Focused on Results." onto its
+   own line early. */
+.home2-choose .section-title { color: #ffffff; text-align: center; margin: 0 auto 50px; line-height: 1.1em; letter-spacing: -3px; }
+.home2-choose .section-title .highlight { color: #ffffff; }
+
+.home2-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.home2-choose-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: left;
+  transition: background-color 300ms linear;
+}
+
+.home2-choose-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.home2-choose-card:hover { background-color: var(--color-services-primary); }
+
+.home2-choose-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  transition: background-color 300ms linear;
+}
+
+/* Real per-card CSS (checked via computed styles, not just the markup):
+   every icon gets a white stroke outline by default regardless of its
+   own authored fill - that's what makes the "Cutting-Edge" icon (fill
+   #303048, same as the card background) read as a visible white-line
+   icon instead of vanishing into the dark card. On hover the fill is
+   forced dark too, so it stays legible against the white icon box. */
+.home2-choose-icon svg { max-width: 40px; max-height: 40px; display: block; }
+.home2-choose-icon svg path { stroke: #ffffff; }
+
+.home2-choose-card:hover .home2-choose-icon { background-color: #ffffff; }
+.home2-choose-card:hover .home2-choose-icon svg path { fill: var(--color-services-blue); stroke: var(--color-text-title); }
+
+.home2-choose-card h3 { font-size: 22px; margin: 0 0 20px; color: #ffffff; }
+.home2-choose-card-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 35px; }
+.home2-choose-card p { margin: 0; color: rgba(255,255,255,0.7); font-size: 18px; line-height: 1.5556; }
+
+/* Live page: same hover-pan trick as the awards photo, but this one moves
+   to "bottom left" on hover (not "top") - confirmed on element #27b7881 -
+   with the same slow 2s transition. */
+.home2-choose-photo {
+  grid-column: span 2;
+  border-radius: 20px;
+  min-height: 280px;
+  background-size: cover;
+  background-position: center center;
+  transition: background-position 2s ease;
+}
+
+.home2-choose-photo:hover {
+  background-position: bottom left;
+}
+
+@media (max-width: 1400px) {
+  .home2-choose-card { padding: 35px 15px; }
+  .home2-choose-card h3 { font-size: 20px; }
+}
+
+@media (max-width: 1024px) {
+  .home2-choose-grid { grid-template-columns: repeat(2, 1fr); }
+  .home2-choose-photo { grid-column: span 2; }
+}
+
+@media (max-width: 640px) {
+  .home2-choose-grid { grid-template-columns: 1fr; }
+  .home2-choose-photo { grid-column: span 1; }
+}
+
+/* ===== Latest Case Studies (horizontal scroll) =====
+   Pulled the real Swiper config straight from the theme's own JS
+   (pxl-swiper.min.js): slides_to_show is 1/2/2/3/3/4 at breakpoints
+   0/576/768/992/1200/1400, gutter 30px, arrows/dots/autoplay all off
+   (drag only), loop off. The whole row is boxed at the same 1290px as
+   the heading above it too - NOT full-bleed with a peeking partial
+   card, which was a wrong guess: with 6 real cards in a fractional
+   ~3.5-per-view layout they came out smaller/more-crowded than the
+   real page, which only ever shows a clean 1/2/3/4 count at once. */
+.home2-cases-section {
+  padding: 90px 0;
+}
+
+.home2-cases-head {
+  max-width: 1290px;
+  margin: 0 auto 50px;
+  padding: 0 15px;
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.home2-cases-head > div:first-child { width: 60%; flex: 1 1 480px; }
+.home2-cases-head .section-title { max-width: 660px; font-size: 60px; line-height: 1.2em; letter-spacing: -4px; }
+.home2-cases-head .section-title .highlight { color: var(--color-text-title); }
+
+.home2-cases-head-text { width: 40%; flex: 1 1 320px; max-width: 420px; color: var(--color-text-paragraph); }
+.home2-cases-head-text p { margin: 0 0 20px; }
+
+@media (max-width: 640px) {
+  .home2-cases-section { padding: 60px 0; }
+}
+
+/* Full-bleed, not boxed: the real widget breaks out of the 1290px box with
+   a large negative right margin (`margin:0 -380px 0 0` on #9477e1a) so the
+   row runs all the way to the true right edge - only the left stays inset
+   (20px) to line up with the heading, so the next item always peeks in as
+   a drag affordance. Per the client's call: visible count is ~3.5 cards
+   (3 full + a peeking sliver), not the raw integer Swiper breakpoints. */
+.home2-cases-scroll {
+  display: flex;
+  gap: 30px;
+  padding: 0 0 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  /* real swiper carousel has no visible scrollbar track at all - it's
+     drag/swipe only, so the scrollbar is hidden rather than styled */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.home2-cases-scroll.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.home2-cases-scroll.is-dragging .home2-case-card { pointer-events: none; }
+
+.home2-cases-scroll::-webkit-scrollbar { display: none; }
+
+/* Card width is a fraction of the row's own rendered (full-bleed) width,
+   so the visible count is always ~3.5 cards (3 full plus a sliver of the
+   next peeking at the edge) regardless of viewport size. */
+.home2-case-card {
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  min-height: 420px;
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .home2-case-card { flex-basis: calc((100% - 60px) / 2.5); }
+}
+
+@media (min-width: 900px) {
+  .home2-case-card { flex-basis: calc((100% - 90px) / 3.5); }
+}
+
+.home2-case-card-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 450ms ease;
+}
+
+.home2-case-card:hover .home2-case-card-media { transform: scale(1.08); }
+
+/* Real behaviour: the card shows a clean photo at rest - the tag/title
+   panel is invisible (scaled/faded out) until you hover the card, when
+   it fades/slides up over a frosted-glass dark backdrop. Hover has no
+   effect on touch, so it's forced back to always-visible below the
+   point where hover isn't reliably available. */
+.home2-case-card-body {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  z-index: 1;
+  padding: 22px 26px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(20,23,33,0.35) 0%, rgba(20,23,33,0.85) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.home2-case-card:hover .home2-case-card-body,
+.home2-case-card:focus-visible .home2-case-card-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  .home2-case-card-body { opacity: 1; transform: translateY(0); }
+}
+
+.home2-case-card-tag { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-services-accent); display: block; margin-bottom: 8px; }
+.home2-case-card h3 { font-size: 20px; margin: 0; color: #ffffff; }
+
+/* ===== Stats (video/dark) ===== */
+/* Correct background asset + overlay taken from element #8f71c84:
+   `linear-gradient(180deg, #14142733 0%, #141427 71%)` over bg-vd-h2.webp -
+   was using an unrelated image (bg-ctf) with a made-up diagonal tint. */
+.home2-stats-section {
+  background: linear-gradient(180deg, rgba(20,20,39,0.2) 0%, #141427 71%), url('../images/home-2/bg-vd-h2.webp') center / cover no-repeat;
+  border-radius: 20px;
+  color: #ffffff;
+  position: relative;
+}
+
+/* Full-bleed BACKGROUND band (not the shared 1290px-boxed `.section`)
+   with a flat 20px margin down both sides instead of being centered at
+   a fixed max-width - the auto margins on a calc()-based width still
+   center it, landing on an even 20px each side. This has to be at
+   LEAST as specific as `.home2-main .section` (2 classes) or that
+   rule's max-width:1290px/margin:0 auto wins regardless of source
+   order - a plain `.home2-stats-section` (1 class) was silently losing
+   to it. The section's own padding is zeroed out here because the
+   1290px-boxed CONTENT width/padding moves to `.home2-stats-inner`
+   below - only the background/panel is full-bleed, not the content. */
+.home2-main .home2-stats-section {
+  max-width: none;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  padding: 0;
+}
+
+.home2-stats-inner {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 90px 15px;
+}
+
+.home2-stats-top { display: grid; grid-template-columns: 1.3fr auto 300px; gap: 40px; align-items: center; margin-bottom: 50px; }
+.home2-stats-top h2 { color: #ffffff; margin: 0 0 16px; letter-spacing: -3px; }
+.home2-stats-top h2 .highlight { color: #ffffff; }
+.home2-stats-top p { color: rgba(255,255,255,0.7); margin: 0; max-width: 460px; }
+
+/* Real widget (`.pxl-btn-video`): a 60x60 glass button (blur + gradient,
+   not a flat rgba fill) with 3 concentric rings (`.line-video-animation`)
+   that pulse outward on hover only (paused otherwise) - not the plain
+   90px flat circle + static triangle this used to be. */
+.home2-stats-play {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(to top, rgba(120,120,120,0.35), rgba(43,43,43,0.55)),
+              radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 60%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  flex: none;
+}
+
+.home2-stats-play-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.24);
+  border-radius: inherit;
+  opacity: 0;
+  animation: home2-stats-play-pulse 3s linear infinite;
+  animation-play-state: paused;
+}
+
+.home2-stats-play:hover .home2-stats-play-ring,
+.home2-stats-play:focus .home2-stats-play-ring {
+  animation-play-state: running;
+}
+
+.home2-stats-play-ring--2 { animation-delay: 1s; }
+.home2-stats-play-ring--3 { animation-delay: 2s; }
+
+@keyframes home2-stats-play-pulse {
+  0% { transform: scale(1); opacity: 0; }
+  20% { transform: scale(1.24); opacity: 1; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+/* Real widget: uniform 25px padding (not 26px/30px) and a solid white
+   label (not rgba(255,255,255,.85)) - `.pxl-counter1 .pxl-counter--title`. */
+.home2-stats-badge {
+  width: 300px;
+  background: var(--color-services-primary);
+  border-radius: 20px;
+  padding: 25px;
+}
+
+.home2-stats-badge-value { font-family: var(--font-heading); font-size: 45px; font-weight: 600; line-height: 1; display: block; margin-bottom: 20px; }
+.home2-stats-badge p { margin: 0; font-size: 18px; font-weight: 500; color: #ffffff; }
+
+.home2-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.home2-stats-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 26px;
+  color: var(--color-text-title);
+  text-align: center;
+}
+
+.home2-stats-card h3 { font-size: 20px; margin: 0 0 35px; }
+.home2-stats-card-icon { color: var(--color-services-primary); margin-bottom: 20px; display: flex; justify-content: center; }
+.home2-stats-card-icon svg { width: 60px; height: 60px; }
+.home2-stats-card p { margin: 0; font-size: 20px; color: var(--color-text-paragraph); line-height: 1.5; }
+
+@media (max-width: 1200px) {
+  .home2-stats-top { grid-template-columns: 1fr; }
+  .home2-stats-play { display: none; }
+}
+
+@media (max-width: 900px) {
+  .home2-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .home2-stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Testimonials =====
+   No dedicated markup class on the real page's header row either - it's
+   just the shared eyebrow/title/text, centered, sitting above the
+   two-column grid. Centering is scoped to this section (not the shared
+   `.section`) so it doesn't leak into other bare `.section` usages, and
+   is reset back to left inside the card grid so quotes/author rows
+   don't inherit it. */
+.home2-testi-intro { text-align: center; }
+.home2-testi-intro .section-eyebrow { justify-content: center; }
+.home2-testi-intro .section-title { margin: 0 auto; letter-spacing: -4px; line-height: 1.1em; }
+.home2-testi-intro .section-title .highlight { color: var(--color-text-title); }
+.home2-testi-intro .section-head-text { margin-left: auto; margin-right: auto; }
+.home2-testi-intro .home2-testi-grid { text-align: left; }
+
+/* Real column split is 30%/70% (measured against the live page's own
+   container widths), not an approximated 1fr/1.6fr. Default grid
+   align-items is `stretch`, so both columns match the taller one's
+   height - but that only reaches as far as `#home2-testi-cards` (the
+   actual grid item); its child `.home2-testi-card` needs its own
+   height:100% to fill that stretched box, or the purple card still
+   shrinks to its own content height instead of matching the photo. */
+.home2-testi-grid {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+/* Real carousel has no dot/bullet pagination at all (pagination:false,
+   arrow:false in its swiper config) - drag/swipe only - so this is a
+   horizontal scroll-snap track (both cards side by side, one card
+   width each) instead of a JS show/hide-by-index + dot-nav pattern. */
+#home2-testi-cards {
+  position: relative;
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 20px;
+  cursor: grab;
+  user-select: none;
+}
+
+#home2-testi-cards::-webkit-scrollbar { display: none; }
+/* scroll-snap-type must be OFF while dragging - `mandatory` snapping
+   fights every manual scrollLeft write from the drag handler below,
+   which is what actually caused the stutter (not the JS itself). */
+#home2-testi-cards.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+
+.home2-testi-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  background: var(--color-services-primary);
+  padding: 36px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Real markup has the stars and "(4.8)" as inline siblings inside one
+   wrapper (`.pxl-star-wrap` + `.text-number`), so they sit on one line
+   by default - `.home2-testi-meta-top` is that wrapper here. */
+.home2-testi-meta-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.home2-testi-stars { color: #ffffff; display: flex; gap: 4px; }
+.home2-testi-rating { color: #ffffff; font-size: 18px; font-weight: 600; margin: 0; }
+/* `p` has its own color rule (styles.css: `p{color:var(--color-text-paragraph)}`)
+   which is MORE specific than inheriting the card's white text color -
+   an explicit color is required here or it silently renders dark gray. */
+.home2-testi-quote { color: #ffffff; font-size: 18px; line-height: 1.55; font-weight: 600; margin: 0 0 auto 0; }
+.home2-testi-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 24px 0 20px; }
+.home2-testi-author { display: flex; align-items: center; gap: 14px; }
+.home2-testi-author img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+.home2-testi-author-name { font-size: 20px; font-weight: 600; }
+.home2-testi-author-role { font-size: 16px; color: #ffffff; }
+
+.home2-testi-photo {
+  border-radius: 20px;
+  min-height: 420px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 900px) {
+  .home2-testi-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Contact / offices ===== */
+.home2-contact {
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+.home2-contact-grid {
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  gap: 20px;
+}
+
+.home2-contact-photo {
+  position: relative;
+  min-height: 560px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: bottom center;
+  display: flex;
+  align-items: flex-end;
+  padding: 60px;
+  color: #ffffff;
+}
+
+.home2-contact-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,20,39,0.2) 39%, rgba(20,20,39,0.9) 84%);
+}
+
+/* Real page boxes this text block at a fixed 710px, centered - it does
+   NOT stretch edge to edge with the padded photo panel. */
+.home2-contact-photo-body { position: relative; z-index: 1; width: 100%; max-width: 710px; margin: 0 auto; }
+.home2-contact-photo-body .section-eyebrow { color: #ffffff; }
+.home2-contact-photo-body .section-eyebrow svg { color: var(--color-services-primary); }
+.home2-contact-photo-body h2 { color: #ffffff; margin: 0 0 30px; max-width: 730px; letter-spacing: -3px; }
+.home2-contact-photo-body h2 .highlight { color: #ffffff; }
+
+.home2-contact-info { display: flex; gap: 50px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px; flex-wrap: wrap; }
+.home2-contact-info-item { display: flex; flex-direction: column; gap: 8px; }
+.home2-contact-info-label { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.75); font-size: 15px; }
+.home2-contact-info-value { font-size: 20px; font-weight: 600; }
+.home2-contact-info-value a { color: inherit; text-decoration: none; }
+
+/* Real desktop padding is 50px top/bottom, 55px left/right (the base
+   value on the container - 15px was its narrower responsive override, not
+   the desktop default). Width is never set directly, it just falls out of
+   the grid column + this padding, same as the live page. */
+.home2-contact-form-panel {
+  background: var(--color-services-blue);
+  border-radius: 20px;
+  padding: 50px 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home2-contact-form-panel h2 { color: #ffffff; text-align: center; font-size: 24px; margin: 0 0 30px; letter-spacing: 0; }
+
+/* The shared `.consult-form` component (services.css, also used by
+   services.html) is styled for a LIGHT card - white inputs, dark text.
+   This panel is dark (#303048), so every field needs its own dark-mode
+   treatment: transparent/bordered fields with light gray text instead
+   of solid white boxes with dark text. */
+.home2-contact-form-panel .consult-form .form-row { margin-bottom: 25px; }
+
+/* This markup nests the input INSIDE the <label> (text node + <input> as
+   siblings), unlike the real page's <label>text</label><br><input> - so
+   `margin-bottom` on the label itself only spaces one field row from the
+   next, it can't create a gap between the label's own text and the input
+   nested inside it. Flexing the label into a column with a gap reproduces
+   that missing text-to-input spacing (real value: 10px, from
+   `.pxl-form--label{margin-bottom:10px}`). */
+.home2-contact-form-panel .consult-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.home2-contact-form-panel .consult-form input,
+.home2-contact-form-panel .consult-form select,
+.home2-contact-form-panel .consult-form textarea {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  color: #bebebe;
+  font-size: 18px;
+  font-weight: 400;
+  height: 60px;
+  padding: 0 18px;
+  box-sizing: border-box;
+}
+
+/* Native dropdown arrow sits right at the box edge - give it its own
+   tighter 10px clearance instead of the 18px the other fields use. */
+.home2-contact-form-panel .consult-form select {
+  padding-right: 10px;
+}
+
+.home2-contact-form-panel .consult-form input::placeholder,
+.home2-contact-form-panel .consult-form textarea::placeholder {
+  color: #bebebe;
+}
+
+.home2-contact-form-panel .consult-form input:focus,
+.home2-contact-form-panel .consult-form select:focus,
+.home2-contact-form-panel .consult-form textarea:focus {
+  border-color: rgba(255,255,255,0.3);
+}
+
+.home2-contact-form-panel .consult-form textarea {
+  height: 160px;
+  min-height: 160px;
+  padding: 15px 18px;
+}
+
+.home2-contact-form-panel .consult-form-full { margin-bottom: 20px; }
+
+@media (max-width: 900px) {
+  .home2-contact-grid { grid-template-columns: 1fr; }
+  .home2-contact-photo, .home2-contact-form-panel { padding: 40px 24px; }
+}
+
+/* ===== Blog ===== */
+.home2-blog-head { text-align: center; margin-bottom: 50px; }
+.home2-blog-head .section-eyebrow { justify-content: center; }
+.home2-blog-head h2 { max-width: 930px; margin: 0 auto; line-height: 1.2em; letter-spacing: -4px; }
+.home2-blog-head h2 .highlight { color: var(--color-text-title); }
+
+.home2-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Real values (`.pxl-post-carousel1` in the theme CSS): photo->meta gap
+   is 30px (was 20), meta->title is 25px (was 16, via title's own
+   margin-top rather than the meta's margin-bottom), and each meta pill
+   is a fixed 36px tall (line-height:36px with 0 vertical padding, not
+   a padding+small-font combo) with a near-white 1px outline (box-shadow,
+   not border) - our old version under-sized and over-darkened all of
+   this at once, which read as "wrong spacing / wrong tag height". */
+.home2-blog-card-photo { display: block; border-radius: 20px; overflow: hidden; margin-bottom: 30px; }
+.home2-blog-card-photo img { display: block; width: 100%; height: auto; }
+
+.home2-blog-meta { display: flex; gap: 10px; margin-bottom: 20px; }
+.home2-blog-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 0 1px #e5e5e5;
+  border-radius: 35px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 36px;
+  color: var(--color-text-paragraph);
+}
+
+.home2-blog-card h3 { font-size: 20px; margin: 25px 0 0; line-height: 1.35; }
+.home2-blog-card h3 a { color: var(--color-text-title); text-decoration: none; }
+
+/* Real markup wraps the label and icon in their own spans
+   (`.btn-text` / `.btn-icon`) rather than bare text + a trailing icon. */
+.home2-blog-card .btn-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text-paragraph);
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.home2-blog-card .btn-readmore .btn-icon { display: inline-flex; font-size: 12px; position: relative; top: 1px; }
+.home2-blog-card .btn-readmore:hover { color: var(--color-services-primary); }
+
+@media (max-width: 900px) {
+  .home2-blog-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== Footer (home-2 real content) =====
+   `.footer-main`/`.footer-cta` etc. are shared from blog-listing.css
+   (the footer markup/CSS is reused site-wide) - that shared grid was
+   built for a 6-block footer (about, 4 nav cols, a separate "Social
+   Media" list, newsletter). The real home-02 footer only has 4 blocks
+   (about+social icons inline, Our Services, Contact, Newsletter), so
+   it's a flat 4-column row instead - scoped to this page only. */
+/* Real column widths (measured on the live footer at 1290px content
+   width, 30px gaps): 336 / 240 / 240 / 384px - about, services, contact,
+   newsletter - i.e. a 7:5:5:8 ratio, not four equal 1fr columns. */
+body.home-2 .footer-main {
+  grid-template-columns: 7fr 5fr 5fr 8fr;
+  row-gap: 0;
+}
+
+body.home-2 .footer-about,
+body.home-2 .footer-nav-col,
+body.home-2 .newsletter {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+/* Real footer CTA: one row - left = heading + paragraph (left-aligned),
+   right = the button - with the spinning circle graphic as a
+   decorative accent bleeding off the right edge of the row itself
+   (see `.footer-cta-circle` below), not tucked behind the text. */
+body.home-2 .footer-cta-content { position: relative; }
+body.home-2 .footer-cta-content h2,
+body.home-2 .footer-cta-content p { position: relative; z-index: 1; }
+
+/* Button right-aligned and vertically centered against the title/text
+   block beside it - the shared `.footer-cta-inner` (blog-listing.css)
+   uses align-items:flex-start, which pins it to the top instead. */
+body.home-2 .footer-cta-inner { position: relative; align-items: center; }
+body.home-2 .footer-cta-inner > .btn { flex-shrink: 0; margin-left: auto; position: relative; z-index: 1; }
+
+/* Circle graphic sits at full/near-native size off the right edge of
+   the whole `.footer-cta-inner` row, pulled up so the top third of it
+   bleeds into the section above (759:700 ratio at 620px wide renders
+   ~571px tall, so -190px pulls up about a third of that), sitting
+   BEHIND the button (lower z-index) rather than centered beside it. */
+body.home-2 .footer-cta-circle {
+  position: absolute;
+  right: -100px;
+  top: -190px;
+  left: auto;
+  width: 620px;
+  height: auto;
+  max-width: none;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+  animation: pxl-spin 32s linear infinite;
+}
+
+@media (max-width: 900px) {
+  body.home-2 .footer-cta-circle { display: none; }
+}
+
+/* Marquee (the scrolling ticker bar) is its own element sitting BEFORE
+   the footer (not nested inside it, which is wrong - it's a separate
+   section that overlaps down onto the footer's rounded top edge via a
+   negative bottom margin) and is full-bleed edge-to-edge in the shared
+   blog-listing.css markup, but the real page insets it 20px on both
+   sides with a 20px radius (post-7519.css: 72dc381 padding-left/
+   right:20px wrapping 721147c's own border-radius:20px), like a
+   rounded card rather than a flush bar - same treatment as the footer
+   itself below. */
+body.home-2 .footer-marquee {
+  position: relative;
+  z-index: 2;
+  width: calc(100% - 40px);
+  max-width: none;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* The footer is also inset 20px each side with a 20px radius, matching
+   the marquee above it - the marquee's negative margin then pulls it
+   up to overlap the footer's rounded top edge. No overflow:hidden here
+   (unlike the marquee) - the footer-cta-circle decoration deliberately
+   bleeds past this box's edges, and border-radius still rounds the
+   footer's own background without needing to clip anything. */
+body.home-2 .site-footer {
+  width: calc(100% - 40px);
+  max-width: none;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+@media (max-width: 767px) {
+  body.home-2 .footer-cta-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* `.footer-main-card`'s border (from blog-listing.css, shared with
+   blog-listing.html) isn't in the real home-02 footer - scoped removal
+   so that other page keeps its own border. */
+body.home-2 .footer-main-card { border: none; }
+
+/* Real footer widget (#98ec801, pxl-icon1 style-1): 40x40 transparent
+   rounded-square buttons (10px radius) with a hairline white/10% border
+   and a white icon, inverting to solid cyan accent + dark navy icon on
+   hover - not a solid white square with a dark icon like this was. */
+.footer-social { display: flex; gap: 10px; margin-top: 24px; }
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #ffffff;
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+}
+.footer-social a:hover {
+  background: var(--color-services-accent);
+  color: #040c5c;
+}
+
+@media (max-width: 1024px) {
+  body.home-2 .footer-main { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+}
+
+@media (max-width: 600px) {
+  body.home-2 .footer-main { grid-template-columns: 1fr; }
+}

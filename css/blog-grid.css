@@ -1,0 +1,192 @@
+/* ===== Blog Grid page (no sidebar) ===== */
+.blog-grid-main {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 60px 0 100px;
+}
+
+/* Featured row (2 large overlapping cards) */
+.blog-grid-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.featured-grid-card {
+  position: relative;
+  border-radius: 20px;
+}
+
+.featured-grid-card-img {
+  display: block;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.featured-grid-card-img img {
+  width: 100%;
+  height: 371px;
+  object-fit: cover;
+  display: block;
+}
+
+.featured-grid-card-box {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.featured-grid-card-box .post-meta {
+  margin-bottom: 20px;
+}
+
+.featured-grid-card-box h3 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.6px;
+}
+
+.featured-grid-card-box h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.featured-grid-card-box h3 a:hover {
+  color: var(--color-software-primary);
+}
+
+/* Standard 3-column grid */
+.blog-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+  row-gap: 40px;
+}
+
+.grid-card-img {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.grid-card-img img {
+  width: 100%;
+  height: 263px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.grid-card-img:hover img {
+  transform: scale(1.05);
+}
+
+.grid-card h3 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.6px;
+  margin-bottom: 12px;
+}
+
+.grid-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.grid-card h3 a:hover {
+  color: var(--color-software-primary);
+}
+
+.grid-card p {
+  margin-bottom: 16px;
+}
+
+.blog-grid .pagination {
+  margin-top: 20px;
+  justify-content: center;
+}
+
+/* ===== Responsive ===== */
+/* Column-count breakpoints match the real site's grid (992/576) */
+@media (max-width: 991px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .blog-grid-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-grid-main {
+    padding: 40px 0 60px;
+  }
+
+  .blog-grid {
+    row-gap: 40px;
+  }
+
+  .grid-card-img img {
+    height: 230px;
+  }
+}
+
+@media (max-width: 575px) {
+  .blog-grid-featured {
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .featured-grid-card-img img {
+    height: 260px;
+  }
+
+  .featured-grid-card-box {
+    padding: 20px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-grid-card-box {
+    padding: 16px;
+  }
+
+  .featured-grid-card-box .post-meta {
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .featured-grid-card-img {
+    border-radius: 16px;
+  }
+
+  .featured-grid-card-box {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    background: transparent;
+    border-radius: 0;
+    padding: 20px 0 0;
+  }
+}

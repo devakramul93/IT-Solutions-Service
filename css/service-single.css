@@ -1,0 +1,456 @@
+/* ==========================================================================
+   Single service detail page (service-custom-software-development.html)
+   ========================================================================== */
+
+.service-single-main {
+  overflow: hidden;
+}
+
+.service-single-main .section {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 90px 15px;
+  box-sizing: border-box;
+}
+
+/* ===== Top layout: intro + gallery column, sidebar spans both rows ===== */
+.service-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px 30px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 90px 15px 90px;
+  box-sizing: border-box;
+  align-items: start;
+}
+
+/* Intro + gallery are a single grid item (one column, one row) so the
+   sidebar spanning both doesn't inflate the row track and push a gap
+   between them. */
+.service-intro-gallery-col {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+/* ===== Intro ===== */
+.service-intro {
+  min-width: 0;
+}
+
+.service-intro-lead {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  color: var(--color-text-title);
+  font-weight: 500;
+  margin: 0 0 30px;
+}
+
+.service-intro-body {
+  margin: 0;
+}
+
+/* ===== Gallery (below intro, same column) ===== */
+.service-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 30px;
+  min-width: 0;
+}
+
+.service-gallery img {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ===== Why choose us (4-col feature grid, left column width) ===== */
+.why-choose .section-head,
+.why-choose .feature-grid {
+  max-width: 840px;
+}
+
+.service-single-main .feature-grid--2x2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Matches the live theme's pxl-icon-box4.style-1 pattern: circular blue
+   icon beside the title in a bordered row, excerpt below indented to
+   line up under the title (not the icon). */
+.why-choose .feature-card {
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  padding: 0;
+  transition: background 0.25s ease;
+}
+
+.why-choose .feature-card:hover {
+  background: #e3f2fb;
+  border-color: rgba(2, 8, 66, 0.1);
+  box-shadow: none;
+  transform: none;
+}
+
+.why-choose .feature-card-body {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.why-choose .feature-icon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  background: var(--color-software-primary);
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.why-choose .feature-card:hover .feature-icon {
+  background: var(--color-software-primary);
+  color: #ffffff;
+}
+
+.why-choose .feature-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text-title);
+}
+
+.why-choose .feature-card p {
+  padding: 25px 20px 25px 40px;
+  font-size: 18px;
+  line-height: 1.5556;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .why-choose .feature-card p {
+    padding: 25px 15px;
+  }
+}
+
+/* Full-width rows below the intro/gallery column (stay out of the
+   sidebar's column so auto-placement doesn't squeeze them into it).
+   Each row is pinned explicitly (1-4) so the sidebar can span all of
+   them (below) without stretching any single row to the sidebar's
+   height — that stretch was leaving a big blank gap under the shorter
+   rows because the sidebar is taller than the intro/gallery column. */
+.why-choose {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.service-video-wrap {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.service-faq {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+/* ===== Sidebar (beside the intro + gallery column) ===== */
+.service-sidebar {
+  grid-column: 2;
+  grid-row: 1 / 5;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-width: 0;
+}
+
+.service-category-card {
+  border: 1px solid rgba(2, 8, 66, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.service-category-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 28px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffffff;
+  background: var(--color-software-primary);
+}
+
+.service-category-title svg {
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.service-category-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 12px;
+}
+
+.service-category-list li {
+  border-bottom: 1px solid rgba(2, 8, 66, 0.06);
+}
+
+.service-category-list li:last-child {
+  border-bottom: none;
+}
+
+.service-category-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text-paragraph);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.service-category-list a svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.service-category-list a:hover {
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+}
+
+.service-category-list a:hover svg {
+  transform: translateX(3px);
+}
+
+/* ===== Contact CTA card (sidebar, dark, single column) ===== */
+.contact-cta-card {
+  position: relative;
+  border-radius: 20px;
+  background: var(--color-software-primary);
+  padding: 32px;
+  overflow: hidden;
+}
+
+.contact-cta-card .decor-line-big,
+.contact-cta-card .decor-line-small {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.contact-cta-card .decor-line-big {
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+}
+
+.contact-cta-card .decor-line-small {
+  bottom: -40px;
+  left: 20%;
+  width: 120px;
+  height: 120px;
+}
+
+.contact-cta-text {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.contact-cta-text h2 {
+  font-size: 24px;
+  line-height: 1.35;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin: 0 0 24px;
+}
+
+.contact-cta-text h2 .highlight {
+  color: var(--color-software-accent);
+  font-style: italic;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.contact-cta-image {
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.contact-cta-image img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.contact-cta-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-cta-info-row {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.contact-cta-info-row:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.contact-cta-info-row .label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+
+.contact-cta-info-row a {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.contact-cta-info-row a:hover {
+  color: var(--color-software-accent);
+}
+
+/* ===== Video (left column width, left-aligned) =====
+   No max-width/margin:auto here — this is a grid item inside .service-layout
+   already, and centering it with auto margins made Chrome size it by
+   shrink-to-fit (collapsing down to the 90px play button) instead of
+   stretching to the column's width, which hid the background image. */
+.service-video-wrap {
+  padding: 0 15px 90px;
+  box-sizing: border-box;
+}
+
+.service-video {
+  position: relative;
+  max-width: 840px;
+  border-radius: 24px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 21 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-video::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 8, 66, 0.35);
+}
+
+.service-video-play {
+  position: relative;
+  z-index: 1;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--color-software-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.service-video-play svg {
+  margin-left: 4px;
+}
+
+.service-video-play:hover {
+  transform: scale(1.08);
+  background: var(--color-software-dark);
+}
+
+/* ===== FAQ (left column width, left-aligned) ===== */
+.service-faq .section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 840px;
+}
+
+.service-faq .faq-accordion {
+  max-width: 840px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .service-single-main .section { padding: 64px 15px; }
+  .service-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 40px;
+    padding: 64px 15px;
+  }
+  .service-intro { grid-column: 1; grid-row: auto; }
+  .service-sidebar { grid-column: 1; grid-row: auto; }
+  .service-gallery { grid-column: 1; grid-row: auto; grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .service-gallery img { height: 260px; }
+  .why-choose .section-head,
+  .why-choose .feature-grid,
+  .service-faq .section-head,
+  .service-faq .faq-accordion { max-width: none; }
+  .feature-grid--2x2 { grid-template-columns: repeat(2, 1fr); }
+  .service-video-wrap { padding: 0 15px 64px; }
+  .service-video { max-width: none; }
+}
+
+@media (max-width: 768px) {
+  .service-single-main .section { padding: 48px 15px; }
+  .service-intro-lead { font-size: 22px; }
+  .feature-grid--2x2 { grid-template-columns: 1fr; }
+  .service-video { aspect-ratio: 4 / 3; }
+  .service-category-card { border-radius: 16px; }
+  .contact-cta-card { padding: 28px; border-radius: 16px; }
+  .contact-cta-text h2 { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+  .service-video-play { width: 64px; height: 64px; }
+  .service-video-play svg { width: 14px; height: 18px; }
+  .contact-cta-info-row a { font-size: 16px; }
+}

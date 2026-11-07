@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Our Team page (our-team.html)
+   Builds on the shared services.css layout (.section, .section-eyebrow,
+   .section-title) plus service-single.css (.service-video). Only the
+   classes unique to this page live here.
+   ========================================================================== */
+
+.team-intro {
+  text-align: center;
+}
+
+/* This page's video isn't in a 2-column layout like the service-single
+   page, so it should fill the full section width (1218x560 on the
+   source site) instead of the shared 840px cap. */
+.team-intro .service-video {
+  max-width: none;
+  aspect-ratio: 1218 / 560;
+}
+
+.team-intro .section-eyebrow {
+  justify-content: center;
+}
+
+.team-intro .section-title {
+  margin: 0 auto;
+}
+
+.team-intro-text {
+  max-width: 750px;
+  margin: 20px auto 30px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* team-intro and team-grid-section share the same white background, so
+   only team-intro's own padding-bottom is used as the gap between them. */
+.team-grid-section {
+  padding-top: 0;
+}
+
+.team-feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.team-feature {
+  flex: 1 1 0;
+  min-width: 220px;
+  padding: 20px 20px 25px 35px;
+  border-right: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.team-feature:last-child {
+  border-right: none;
+}
+
+.team-feature-icon {
+  display: inline-flex;
+  margin-bottom: 20px;
+  color: var(--color-software-primary);
+}
+
+.team-feature h3 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.team-feature p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.team-grid-head {
+  max-width: 700px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.team-grid-head .section-eyebrow {
+  justify-content: center;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 50px;
+  column-gap: 30px;
+}
+
+.team-card-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.team-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.03);
+  transition: transform 300ms ease;
+}
+
+.team-card:hover .team-card-media img {
+  transform: scale(1);
+}
+
+/* Name + role sit left-aligned, with the expand button pinned to the
+   right and vertically centered across both lines. */
+.team-card-meta {
+  position: relative;
+  margin-top: 25px;
+  padding-right: 45px;
+  text-align: left;
+}
+
+.team-card-plus {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  color: var(--color-text-title);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.team-card:hover .team-card-plus {
+  background: var(--color-software-accent);
+  border-color: var(--color-software-accent);
+}
+
+.team-card-name {
+  margin: 0 0 6px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.team-card-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.team-card-role {
+  font-size: 18px;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-feature-row { flex-direction: column; }
+  .team-feature { border-right: none; border-bottom: 1px solid rgba(2, 8, 66, 0.1); }
+  .team-feature:last-child { border-bottom: none; }
+}
+
+@media (max-width: 767px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .team-intro-text { font-size: 16px; }
+  .team-feature { padding: 20px; }
+}

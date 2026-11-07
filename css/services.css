@@ -1,0 +1,986 @@
+/* ==========================================================================
+   Services listing pages (services.html + services-02.html)
+   Base classes are shared; ".services-02" scoped rules provide the layout
+   variant for services-02.html.
+   ========================================================================== */
+
+.hero-subtitle {
+  margin-top: 20px;
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.services-main {
+  overflow: hidden;
+}
+
+.section {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text-paragraph);
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+.section-eyebrow svg,
+.section-eyebrow i {
+  flex-shrink: 0;
+  color: var(--color-software-primary);
+}
+
+/* Icomoon glyph needs its own size — the svg icons it replaces on index.html
+   were already sized via width/height attributes, but a font icon only
+   takes font-size (verified default: `.pxl-icon-box2 .pxl-item--icon`
+   is 24px site-wide). */
+.section-eyebrow i {
+  font-size: 24px;
+}
+
+.section-title {
+  font-size: 60px;
+  line-height: 1.1;
+  letter-spacing: -3px;
+}
+
+.section-title .highlight {
+  color: var(--color-software-primary);
+  font-style: italic;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+
+.section-head-left {
+  max-width: 640px;
+}
+
+.section-head-text {
+  max-width: 420px;
+  padding-bottom: 6px;
+}
+
+/* ===== Why Choose Us ===== */
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: stretch;
+  margin-top: 40px;
+}
+
+.why-choose-text {
+  max-width: 420px;
+  margin-bottom: 32px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-paragraph);
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.why-choose-photo {
+  position: relative;
+  min-height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+.why-choose-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 8, 66, 0) 38%, #020842 100%);
+}
+
+.why-choose-photo .highlight-banner {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  margin: 0;
+  border-radius: 14px;
+}
+
+.why-choose-photo .highlight-banner-inner {
+  padding: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.why-choose-photo .highlight-banner-title {
+  font-size: 22px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-grid--2x2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.feature-card {
+  border: 1px solid rgba(2, 8, 66, 0.08);
+  border-radius: 20px;
+  padding: 40px 32px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.feature-card:hover {
+  border-color: transparent;
+  box-shadow: 0 24px 48px rgba(2, 8, 66, 0.1);
+  transform: translateY(-6px);
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+  margin-bottom: 24px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.feature-card:hover .feature-icon {
+  background: var(--color-software-primary);
+  color: #ffffff;
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+/* Why Choose Us (services.html) uses the real "icon-box1" pattern from the
+   live theme: circular dark icon beside a stacked title+excerpt column,
+   inside a bordered row card — different from the generic .feature-card
+   above (used as a plain 2x2 grid on the single-service page). */
+.why-choose-left .feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 30px;
+  margin-bottom: 0;
+  transition: background 0.25s ease;
+}
+
+.why-choose-left .feature-card:hover {
+  background: #e3f2fb;
+  border-color: rgba(2, 8, 66, 0.08);
+  box-shadow: none;
+  transform: none;
+}
+
+.why-choose-left .feature-icon {
+  width: 65px;
+  height: 65px;
+  min-width: 65px;
+  min-height: 65px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-software-dark);
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.why-choose-left .feature-icon svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.why-choose-left .feature-card:hover .feature-icon {
+  background: var(--color-software-primary);
+}
+
+.why-choose-left .feature-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.why-choose-left .feature-content h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.why-choose-left .feature-content p {
+  font-size: 15px;
+  line-height: 24px;
+  margin: 0;
+  color: var(--color-text-paragraph);
+}
+
+/* ===== Highlight banner ===== */
+.highlight-banner {
+  background: var(--color-software-dark);
+  border-radius: 24px;
+  max-width: 1610px;
+  margin: 0 auto;
+}
+
+.highlight-banner-inner {
+  padding: 64px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.highlight-banner-title {
+  color: #ffffff;
+  font-size: 38px;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  max-width: 640px;
+}
+
+.highlight-banner-title .highlight {
+  color: var(--color-software-accent);
+  font-style: italic;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.check-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 207, 39, 0.15);
+  color: var(--color-software-accent);
+}
+
+.process-section .section-head-text {
+  max-width: 650px;
+}
+
+.process-section .section-head-text p {
+  margin-bottom: 30px;
+}
+
+.process-section .checklist li,
+.process-section .check-icon {
+  color: var(--color-text-title);
+}
+
+.process-section .check-icon {
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+}
+
+/* ===== Our IT Services grid =====
+   Verified against post-291.css (elements 9b45efd/956d042/4de2bc5...): the
+   light-blue panel (9b45efd) is full-bleed, holding ONE shared white,
+   rounded, bordered card (956d042) that is a 4-column grid of cells split
+   by divider borders — matches the .it-services-grid table below. */
+.it-services {
+  background: #E3F2FB;
+  max-width: none;
+  padding: 100px 20px;
+}
+
+.it-services .section-head {
+  justify-content: center;
+  text-align: center;
+}
+
+.it-services .section-head-left {
+  max-width: none;
+}
+
+.it-services .section-eyebrow {
+  justify-content: center;
+}
+
+.it-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  margin: 40px 0 0;
+  background: #fff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.it-cell {
+  border-left: 1px solid rgba(2, 8, 66, 0.1);
+  border-top: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.it-cell--photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.it-cell--photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+}
+
+.it-cell--text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 28px;
+}
+
+.it-services-grid > .it-cell:nth-child(-n+4) {
+  border-top: none;
+}
+
+.it-services-grid > .it-cell:nth-child(4n+1) {
+  border-left: none;
+}
+
+.it-cell--text .btn-link {
+  margin-top: 4px;
+}
+
+.bento-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+}
+
+.it-cell--text h3 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.it-cell--text p {
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text-title);
+  text-decoration: none;
+}
+
+.btn-link svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.btn-link:hover {
+  color: var(--color-software-primary);
+}
+
+.btn-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* ===== Get Consultations =====
+   Same white background as process-section above it, so only that
+   section's padding-bottom is used as the gap. */
+.consult-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: stretch;
+  padding-top: 0;
+}
+
+.consult-left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  padding: 45px;
+  color: #ffffff;
+}
+
+.consult-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 8, 66, 0) 38%, #020842 100%);
+}
+
+.consult-left > * {
+  position: relative;
+  z-index: 1;
+}
+
+.consult-left .section-eyebrow,
+.consult-left .section-eyebrow svg {
+  color: #ffffff;
+}
+
+.consult-left-title {
+  font-size: 28px;
+  line-height: 1.25;
+  color: #ffffff;
+  margin: 0;
+}
+
+.consult-left-title .highlight {
+  color: var(--color-software-accent);
+  font-style: italic;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.consult-email {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  max-width: 420px;
+}
+
+.consult-email-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-software-primary);
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.consult-email h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+.consult-email a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.consult-email a:hover {
+  color: var(--color-software-accent);
+}
+
+.consult-form-card {
+  background: var(--color-software-gray-dark);
+  border-radius: 24px;
+  padding: 48px;
+}
+
+.consult-form-card h3 {
+  font-size: 26px;
+  margin-bottom: 28px;
+}
+
+.consult-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.consult-form label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-text-title);
+  margin-bottom: 8px;
+}
+
+.consult-form input,
+.consult-form select,
+.consult-form textarea {
+  width: 100%;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 15px 18px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text-title);
+}
+
+.consult-form input::placeholder,
+.consult-form textarea::placeholder {
+  color: #9099a8;
+}
+
+.consult-form input:focus,
+.consult-form select:focus,
+.consult-form textarea:focus {
+  outline: none;
+  border-color: var(--color-software-primary);
+}
+
+.consult-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.consult-form-full {
+  margin-bottom: 24px;
+}
+
+.consult-form button[type="submit"] {
+  border: none;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   services-02.html layout variant
+   ========================================================================== */
+
+.approach-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.approach-intro p {
+  margin-bottom: 0;
+}
+
+.approach-steps-lead {
+  margin: 0 0 20px;
+  color: var(--color-text-paragraph);
+}
+
+.step-accordion {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.step-accordion-item {
+  border-bottom: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.step-accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 26px 4px;
+  text-align: left;
+  font-family: var(--font-heading);
+}
+
+.step-number {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-software-primary);
+  flex-shrink: 0;
+}
+
+.step-accordion-title span.step-title-text {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-title);
+}
+
+.step-accordion-title svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: var(--color-text-title);
+}
+
+.step-accordion-item.is-active .step-accordion-title svg {
+  transform: rotate(90deg);
+  color: var(--color-software-primary);
+}
+
+.step-accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.step-accordion-item.is-active .step-accordion-content {
+  max-height: 240px;
+}
+
+.step-accordion-content p {
+  padding: 0 4px 26px;
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+/* Our IT Services (services-02 3-col card grid)
+   Verified against post-2170.css (elements 37d76cf/d3b582a): the panel is a
+   near-full-bleed rounded card (20px radius, 20px side gutter) with a dot
+   pattern background image, while its heading + grid content stay centered
+   at the site's normal 1290px content width. */
+.services-02-services {
+  position: relative;
+  max-width: none;
+  margin: 0 20px;
+  padding: 110px 0 90px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #E3F2FB url('../images/services-02/bg-services-grid.png') top center / auto no-repeat;
+}
+
+.services-02-inner {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.services-02-head {
+  display: block;
+  text-align: center;
+  margin: 0 auto 48px;
+}
+
+.services-02-head .section-eyebrow {
+  justify-content: center;
+}
+
+.service-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.08);
+  border-radius: 20px;
+  padding: 36px 32px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.service-card:hover {
+  border-color: transparent;
+  box-shadow: 0 24px 48px rgba(2, 8, 66, 0.1);
+  transform: translateY(-6px);
+}
+
+.service-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--color-software-gray-dark);
+  color: var(--color-software-primary);
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 21px;
+  margin-bottom: 16px;
+}
+
+.service-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-card h3 a:hover {
+  color: var(--color-software-primary);
+}
+
+.service-card-divider {
+  height: 1px;
+  background: rgba(2, 8, 66, 0.1);
+  margin-bottom: 16px;
+}
+
+.service-card-excerpt {
+  font-size: 15px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+.service-card-features {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-card-features li {
+  font-size: 15px;
+  color: var(--color-text-title);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  padding-left: 18px;
+  position: relative;
+}
+
+.service-card-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-software-primary);
+}
+
+/* Solutions Challenge (FAQ-style accordion) */
+.challenge-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.challenge-left .section-head-text {
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+
+.faq-accordion {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-accordion-item {
+  padding: 24px;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.faq-accordion-item.is-active {
+  background-color: #f7f9ff;
+}
+
+.faq-accordion-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-text-title);
+}
+
+.faq-icon-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  transition: transform 0.3s ease;
+}
+
+.faq-accordion-item.is-active .faq-icon-action {
+  transform: rotate(135deg);
+}
+
+.faq-accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.faq-accordion-item.is-active .faq-accordion-content {
+  max-height: 200px;
+}
+
+.faq-accordion-content-inner {
+  padding-top: 16px;
+}
+
+.faq-accordion-content-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0 0 12px;
+}
+
+.faq-accordion-content-inner ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.faq-accordion-content-inner li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  color: var(--color-text-title);
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+
+.faq-accordion-content-inner li::before {
+  content: "\25C6";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 12px;
+  color: var(--color-software-primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .section { padding: 64px 24px; }
+  .section-title { font-size: 40px; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-choose-grid { grid-template-columns: 1fr; }
+  .why-choose-photo { min-height: 360px; }
+  .it-services { padding: 75px 15px 85px; }
+  .it-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .it-services-grid > .it-cell:nth-child(-n+4) { border-top: 1px solid rgba(2, 8, 66, 0.1); }
+  .it-services-grid > .it-cell:nth-child(-n+2) { border-top: none; }
+  .it-services-grid > .it-cell:nth-child(4n+1) { border-left: 1px solid rgba(2, 8, 66, 0.1); }
+  .it-services-grid > .it-cell:nth-child(2n+1) { border-left: none; }
+  .service-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .consult-section { grid-template-columns: 1fr; }
+  .consult-left { min-height: 320px; }
+  .approach-section,
+  .challenge-section { grid-template-columns: 1fr; }
+  .highlight-banner-inner { padding: 48px 32px; }
+}
+
+@media (max-width: 900px) {
+  .section-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 48px 20px; }
+  .section-title { font-size: 40px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .it-services-grid { grid-template-columns: 1fr; }
+  .it-services-grid > .it-cell {
+    border-left: none;
+    border-top: 1px solid rgba(2, 8, 66, 0.1);
+  }
+  .it-services-grid > .it-cell:first-child { border-top: none; }
+  .it-cell--photo img { min-height: 260px; }
+  .it-cell--text { padding: 28px 24px; }
+  .it-services { padding: 64px 20px; }
+  .service-cards-grid { grid-template-columns: 1fr; }
+  .consult-form-card { padding: 32px 24px; }
+  .consult-form .form-row { grid-template-columns: 1fr; }
+  .highlight-banner-title { font-size: 28px; }
+  .services-02-services { margin: 0 12px; padding: 64px 0; }
+  .services-02-inner { padding: 0 16px; }
+  .services-02-head { margin-bottom: 32px; }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 35px; }
+  .section-eyebrow { font-size: 16px; }
+  .highlight-banner { border-radius: 16px; }
+  .highlight-banner-inner { padding: 36px 20px; }
+  .checklist { gap: 12px 20px; }
+  .consult-form-card { border-radius: 16px; }
+  .step-accordion-title span.step-title-text { font-size: 17px; }
+  .faq-accordion-title { font-size: 16px; }
+}

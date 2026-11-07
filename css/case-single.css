@@ -1,0 +1,398 @@
+/* ==========================================================================
+   Case study single page (case-creative-team-in-strategy-session.html)
+   Reuses .hero/.tags-marquee/.site-footer from blog-listing.css, .section/
+   .checklist/.check-icon/.btn from services.css, and .service-gallery from
+   service-single.css. Only page-specific blocks are defined here.
+   ========================================================================== */
+
+.case-single-main .section {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.case-block-title {
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: normal;
+  margin-bottom: 30px;
+}
+
+/* ===== Introductions (2 equal columns) ===== */
+.case-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.case-intro-col h2.case-block-title {
+  margin-bottom: 10px;
+}
+
+.case-intro-col p {
+  margin-bottom: 20px;
+}
+
+/* ===== Checklist on a light background (Introductions / Challenge & Solutions) =====
+   Live theme's pxl-link widget here has no circle icon badge and gray
+   (#666666) text — forced into exactly 2 columns, not flex-wrap auto-fit. */
+.checklist--dark {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+.checklist--dark li {
+  color: var(--color-text-paragraph);
+  font-weight: 400;
+}
+
+.checklist--dark .check-icon {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: var(--color-text-paragraph);
+}
+
+/* ===== Meta photo (Category / Location overlaid on a full-width photo) ===== */
+.case-meta-photo {
+  position: relative;
+  min-height: 630px;
+  max-width: 1290px;
+  margin: 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 48px 30px;
+}
+
+.case-meta-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 8, 66, 0) 45%, rgba(2, 8, 66, 0.85) 100%);
+}
+
+.case-meta-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100%;
+  padding: 20px 28px;
+  background: rgba(2, 8, 66, 0.45);
+  border-radius: 14px;
+}
+
+.case-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.case-meta-label {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.case-meta-value {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a.case-meta-value:hover {
+  color: var(--color-software-accent);
+}
+
+/* ===== Single-column text block (Delivering Result) ===== */
+.case-block {
+  max-width: 980px;
+}
+
+.case-block p {
+  margin-bottom: 30px;
+}
+
+.case-block > p:last-of-type {
+  margin-bottom: 45px;
+}
+
+.case-block-text p:last-of-type {
+  margin-bottom: 50px;
+}
+
+.case-block .checklist--dark {
+  margin-top: 4px;
+}
+
+/* ===== Challenge & Solutions: text + side photo ===== */
+.case-block.case-block--with-photo {
+  max-width: 1290px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.case-block-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 800 / 879;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ===== Gallery (two side-by-side photos, own class so it doesn't collide
+   with .service-gallery's fixed height:340px on the single-service page) ===== */
+.case-gallery {
+  max-width: 1290px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 15px 15px 55px;
+  box-sizing: border-box;
+}
+
+.case-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+/* ===== Numbered process steps (4-cell bento row: fill / fill / photo / fill) =====
+   Same white background as the block above it, so only that block's
+   padding-bottom is used as the gap. */
+.case-single-main .case-steps {
+  padding-top: 0;
+}
+
+.case-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Live spacing: 45px under the last paragraph (already its margin-bottom)
+   + the divider's own 15px/15px block padding + 55px above the pagination
+   row — not a second stacked section padding on either side of it. */
+.case-single-main .case-block:not(.case-block--with-photo) {
+  padding-bottom: 0;
+}
+
+.case-single-main .case-pagination-section {
+  padding-top: 55px;
+}
+
+.case-step {
+  padding: 30px;
+  border-radius: 14px;
+  background: #e3f2fb;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.case-step--primary {
+  background: var(--color-software-primary);
+  color: #ffffff;
+}
+
+.case-step--dark {
+  background: var(--color-software-dark);
+  color: #ffffff;
+}
+
+.case-step--primary h3,
+.case-step--dark h3 {
+  color: #ffffff;
+}
+
+.case-step--primary p,
+.case-step--dark p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.case-step-number {
+  display: block;
+  margin-bottom: 22px;
+}
+
+.case-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--color-text-title);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.case-step--primary .case-step-badge {
+  background: var(--color-software-accent);
+  color: var(--color-text-title);
+}
+
+.case-step h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.case-step-divider {
+  height: 1px;
+  margin-bottom: 23px;
+  background: linear-gradient(to right, rgba(2, 8, 66, 0) 0%, rgba(2, 8, 66, 0.05) 15%, rgba(2, 8, 66, 0.15) 35%, rgba(2, 8, 66, 0.3) 50%, rgba(2, 8, 66, 0.15) 65%, rgba(2, 8, 66, 0.05) 85%, rgba(2, 8, 66, 0) 100%);
+}
+
+.case-step--primary .case-step-divider,
+.case-step--dark .case-step-divider {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 15%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.45) 50%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.08) 85%, rgba(255, 255, 255, 0) 100%);
+}
+
+.case-step p {
+  margin: 0;
+}
+
+.case-step-photo {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.case-step-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Divider =====
+   Live divider is a 1px line with 15px padding-block above/below baked
+   into the widget itself (not extra section padding on either side). */
+.case-divider {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 15px 0;
+  border-top: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+/* ===== Prev / next case pagination ===== */
+.case-pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.case-pagination-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 460px;
+  text-decoration: none;
+  color: var(--color-text-title);
+}
+
+.case-pagination-next {
+  flex-direction: row-reverse;
+  text-align: right;
+  margin-left: auto;
+}
+
+.case-pagination-thumb {
+  flex-shrink: 0;
+  width: 220px;
+  height: 150px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.case-pagination-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.case-pagination-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.case-pagination-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.36;
+  letter-spacing: normal;
+  color: var(--color-text-title);
+}
+
+.case-pagination-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-software-primary);
+}
+
+.case-pagination-next .case-pagination-label {
+  justify-content: flex-end;
+}
+
+.case-pagination-item:hover .case-pagination-title {
+  color: var(--color-software-primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .case-single-main .section { padding: 48px 24px; }
+  .case-intro { grid-template-columns: 1fr; gap: 28px; }
+  .case-steps-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .case-step-photo { min-height: 220px; }
+  .case-block.case-block--with-photo { grid-template-columns: 1fr; }
+  .case-block-photo { order: -1; }
+  .case-meta-photo { min-height: 480px; padding: 0 28px 24px; }
+  .case-meta-bar { gap: 24px; padding: 16px 20px; }
+  .case-gallery { padding: 15px 20px 48px; }
+}
+
+@media (max-width: 768px) {
+  .case-single-main .section { padding: 40px 20px; }
+  .case-block-title { font-size: 26px; }
+  .case-steps-grid { grid-template-columns: 1fr; }
+  .case-step-photo { min-height: 200px; }
+  .case-meta-bar { flex-direction: column; gap: 16px; }
+  .case-gallery { grid-template-columns: 1fr; gap: 20px; }
+  .checklist--dark { grid-template-columns: 1fr; }
+  .case-pagination { flex-direction: column; }
+  .case-pagination-item,
+  .case-pagination-next { max-width: none; margin-left: 0; }
+  .case-pagination-next { flex-direction: row; text-align: left; }
+  .case-pagination-next .case-pagination-label { justify-content: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .case-block-title { font-size: 22px; }
+  .case-pagination-thumb { width: 96px; height: 72px; border-radius: 10px; }
+  .case-meta-photo { min-height: 380px; padding: 0 20px 20px; }
+}

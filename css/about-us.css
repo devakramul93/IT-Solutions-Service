@@ -1,0 +1,659 @@
+/* ==========================================================================
+   About Us (about-us.html)
+   Reuses .hero/.tags-marquee/.site-footer from blog-listing.css, .section/
+   .section-eyebrow/.section-title/.highlight/.checklist/.check-icon/.btn
+   from services.css. Only page-specific blocks are defined here.
+   ========================================================================== */
+
+.about-main .section {
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+/* Company History & Client Testimonials are full-bleed sections on the
+   source site (no 1290px cap) with fixed side padding instead. */
+.about-main .about-history-section,
+.about-main .about-testimonials-section {
+  max-width: none;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media (min-width: 1441px) {
+  .about-main .about-history-section,
+  .about-main .about-testimonials-section {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+}
+
+.section-title.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ===== Learn About Us (intro) =====
+   Same white background as Company History below it, so only that
+   section's padding-top is used as the gap. */
+.about-main .about-intro {
+  padding-bottom: 0;
+}
+
+.about-intro-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 120px;
+}
+
+.about-intro-col {
+  flex: 0 0 60%;
+  max-width: 60%;
+}
+
+.about-intro-col .section-eyebrow {
+  margin-bottom: 20px;
+}
+
+.about-intro-title {
+  max-width: 830px;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(2, 8, 66, 0.1);
+}
+
+.about-photo {
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+
+.about-feature-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 40px 0;
+}
+
+.about-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.about-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.about-feature-icon img {
+  max-height: 40px;
+}
+
+.about-feature-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.about-feature-item--yellow .about-feature-icon {
+  background: var(--color-software-accent);
+  color: var(--color-text-title);
+}
+
+.about-feature-item--blue .about-feature-icon {
+  background: var(--color-software-primary);
+  color: #ffffff;
+}
+
+.about-feature-item h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  margin: 0;
+}
+
+.about-intro-text {
+  max-width: 480px;
+  margin-bottom: 28px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-paragraph);
+}
+
+.about-photo {
+  position: relative;
+  min-height: 570px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.about-stat-badge {
+  background: var(--color-software-accent);
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 140px;
+  text-align: center;
+}
+
+.about-stat-value {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: var(--color-text-title);
+}
+
+.about-stat-label {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-title);
+}
+
+/* ===== Company History ===== */
+.about-main .about-history-section {
+  position: relative;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: top center;
+  padding-top: 95px;
+  padding-bottom: 105px;
+}
+
+.about-history-section .section-eyebrow {
+  justify-content: center;
+}
+
+.about-history-banner {
+  position: relative;
+  z-index: 2;
+  margin: 30px auto 0px;
+  max-width: 1740px;
+  min-height: 500px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.about-history-card {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  margin: -120px auto 0;
+  border-radius: 20px;
+  background: var(--color-software-dark);
+  padding: 220px 70px 70px;
+  text-align: left;
+}
+
+.history-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  color: var(--color-text-title);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.history-arrow:hover {
+  background: var(--color-software-primary);
+  color: #ffffff;
+}
+
+#history-prev { left: 30px; }
+#history-next { right: 30px; }
+
+.history-carousel {
+  overflow: hidden;
+  margin: 0 120px;
+}
+
+.history-track {
+  display: flex;
+  gap: 0;
+  transition: transform 0.4s ease;
+}
+
+.history-slide {
+  flex: 0 0 25%;
+  max-width: 25%;
+  color: #ffffff;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.history-year {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.history-title {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+}
+
+.history-divider {
+  position: relative;
+  display: block;
+  margin: 30px -15px 30px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-divider i {
+  position: absolute;
+  top: -6px;
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  background: #ffffff;
+  transform: rotate(45deg);
+  transition: background-color 0.3s ease;
+}
+
+.history-slide:hover .history-divider i {
+  background-color: var(--color-software-accent);
+}
+
+.history-excerpt {
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.history-dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.history-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.history-dots button.is-active {
+  background: var(--color-software-accent);
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ===== Meet Our Teams =====
+   Same white background as Company History above it, so only the
+   section above's padding-bottom is used as the gap (avoids double
+   padding stacking into an oversized gap). */
+.about-team-section {
+  text-align: center;
+}
+
+.about-main .about-team-section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.about-team-section .section-eyebrow {
+  justify-content: center;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.team-card-photo {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.team-card-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 257 / 300;
+  object-fit: cover;
+  transform: scale(1.03);
+  transition: transform 0.23s ease;
+}
+
+.team-card:hover .team-card-photo img {
+  transform: scale(1);
+}
+
+.team-card-meta {
+  position: relative;
+  margin-top: -1px;
+  padding: 25px 45px 0 0;
+  text-align: left;
+}
+
+.team-card-expand {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  color: var(--color-text-title);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.team-card:hover .team-card-expand {
+  background: var(--color-software-accent);
+  border-color: var(--color-software-accent);
+}
+
+.team-card-name {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.team-card-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.team-card-role {
+  font-size: 18px;
+  color: var(--color-text-paragraph);
+  margin: 0;
+}
+
+/* ===== We combine technical expertise (centered heading + 6-item grid) ===== */
+.about-combine-section {
+  text-align: center;
+}
+
+.about-combine-heading {
+  margin: 0 auto 56px;
+}
+
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  text-align: left;
+}
+
+.about-feature-item-col {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.about-feature-item-col .about-feature-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  background: transparent;
+  color: var(--color-software-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.about-feature-item-col .about-feature-icon svg { width: 28px; height: 28px; }
+
+.about-feature-item-col:hover .about-feature-icon {
+  background-color: var(--color-software-primary);
+  color: #ffffff;
+}
+
+.about-features-grid h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.about-features-grid p {
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+
+/* ===== Featured Partners banner ===== */
+.about-partners {
+  background: var(--color-software-primary);
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.about-partners .section-eyebrow {
+  justify-content: center;
+  color: #ffffff;
+  margin-bottom: 32px;
+}
+
+.about-partners .section-eyebrow svg {
+  color: var(--color-software-accent);
+}
+
+.partner-logos {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+}
+
+.partner-logos img {
+  display: block;
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.partner-logos img:hover {
+  opacity: 1;
+}
+
+/* ===== Client Testimonials ===== */
+.about-testimonials-section {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.about-testimonials-section .section-eyebrow {
+  justify-content: center;
+}
+
+.about-testimonials-lead {
+  max-width: 780px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  line-height: 31px;
+  color: var(--color-text-paragraph);
+}
+
+.about-testimonials-bg {
+  position: absolute;
+  left: 50%;
+  bottom: -120px;
+  transform: translateX(-50%);
+  width: 1036px;
+  max-width: none;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.testimonial-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border: 1px solid rgba(2, 8, 66, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.testimonial-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.testimonial-avatar {
+  flex-shrink: 0;
+  width: 170px;
+  max-width: 170px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.testimonial-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.testimonial-quote {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-text-paragraph);
+  margin: 0;
+}
+
+.testimonial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.testimonial-name {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.testimonial-role {
+  font-size: 16px;
+  color: var(--color-text-paragraph);
+  margin: 0;
+}
+
+.testimonial-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-software-accent);
+  flex-shrink: 0;
+  padding: 12px 25px;
+  border-radius: 35px;
+  background-color: #f7f7f7;
+  border: 1px solid rgba(79, 0, 237, 0.1);
+}
+
+.testimonial-score {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-title);
+  margin-left: 4px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1300px) {
+  .history-slide { flex: 0 0 33.3333%; max-width: 33.3333%; }
+}
+
+@media (max-width: 1024px) {
+  .about-main .section { padding: 64px 24px; }
+  .about-main .about-history-section { padding-top: 75px; padding-bottom: 75px; }
+  .section-title { font-size: 36px; }
+  .about-intro-grid { flex-direction: column; gap: 30px; }
+  .about-intro-col, .about-photo { flex: 1 1 auto; max-width: 100%; }
+  .about-photo { min-height: 320px; }
+  .about-history-card { margin: -80px 20px 0; padding: 120px 30px 50px; }
+  .history-carousel { margin: 0 30px; }
+  .history-slide { flex: 0 0 50%; max-width: 50%; }
+  #history-prev, #history-next { display: none; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-features-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .about-main .section { padding: 48px 20px; }
+  .section-title { font-size: 30px; }
+  .about-feature-row { grid-template-columns: 1fr; }
+  .about-features-grid { grid-template-columns: 1fr; }
+  .about-feature-item-col { gap: 20px; }
+  .about-history-card { margin-top: -60px; padding: 90px 20px 40px; }
+  .history-slide { flex: 0 0 100%; max-width: 100%; }
+  .about-partners { padding: 40px 20px; }
+  .partner-logos { gap: 28px; }
+}
+
+@media (max-width: 767px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 26px; }
+  .section-eyebrow { font-size: 16px; }
+  .about-stat-value { font-size: 32px; }
+}

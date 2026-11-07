@@ -1,0 +1,127 @@
+/* ===== Blog Standard page (post list with sidebar) ===== */
+.post-list-standard {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.post-standard-img {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.post-standard-img img {
+  width: 100%;
+  height: 392px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-meta-plain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.post-meta-plain span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 25px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-paragraph);
+}
+
+.post-meta-plain span:last-child {
+  margin-right: 0;
+}
+
+.post-standard h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: normal;
+  margin-bottom: 20px;
+}
+
+.post-standard h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-standard h2 a:hover {
+  color: var(--color-software-primary);
+}
+
+.post-standard p {
+  max-width: 90%;
+  margin-bottom: 27px;
+}
+
+.btn-icon-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text-title);
+  text-decoration: none;
+}
+
+.btn-icon-box svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.btn-icon-box:hover {
+  color: var(--color-software-primary);
+}
+
+.btn-icon-box:hover svg {
+  transform: translateX(3px);
+}
+
+.post-standard-divider {
+  height: 1px;
+  margin-top: 40px;
+  background: linear-gradient(to right, rgba(2, 8, 66, 0), rgba(2, 8, 66, 0.15), rgba(2, 8, 66, 0));
+}
+
+.post-standard:last-child .post-standard-divider {
+  display: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .post-standard-img img {
+    height: 260px;
+  }
+
+  .post-standard h2 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .post-standard p {
+    max-width: 100%;
+  }
+
+  .post-meta-plain span {
+    margin-right: 16px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-standard-img img {
+    height: 200px;
+  }
+}
